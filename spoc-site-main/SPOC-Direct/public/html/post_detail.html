@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -76,27 +76,47 @@
 </div>
 
 
-
 <section id="post_info">
-    <div class="row">
-        <h1 id="title">Title</h1>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">
-            <img id="url" src="#" style="max-height: 200px">
+    <div class="col-8 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10">
+                    <h1 id="title">Title</h1>
+                    </div>
+                    <div class="col-2">
+                        <div class="btn-group">
+                            <button onclick="onEdit()" class="btn btn-primary">Edit</button>
+                            <button onclick="onDelete()" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img id="url" src="#" onerror="this.src='../img/default.png'" style="max-height: 200px">
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <h5 class="col-6">User: <span id="username"></span></h5>
+                            <h5 class="col-6">Tags:<span id="tags"></span></h5>
+                        </div>
+                        <p id="postdetail"> this is where the detail comes in</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-2 mx-3 mb-3">
+                <button class="btn btn-info">Reply</button>
+            </div>
         </div>
-        <div class="col-lg-9">
-
-            <h3>User: <span id="username"></span></h3>
-            <h3>Tags:<span id="tags"></span></h3>
-            <h3>Post Detail:</h3>
-            <p id="postdetail"> this is where the detail comes in</p>
-        </div>
-
-        <button onclick="onEdit()" class="btn btn-primary">Edit</button>
-        <button onclick="onDelete()" class="btn btn-danger">Delete</button>
-
     </div>
+</section>
+
+<section id="replies">
+    <div class="col-8 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
 </section>
 
 </body>

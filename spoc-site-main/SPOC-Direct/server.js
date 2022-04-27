@@ -32,10 +32,17 @@ const forumPostSchema = {
         type: String,
         require: [true, "Description cannot be empty!"]
     },
-    tags: {
+    tags: [{
         type: String,
         require: [true, "Tags cannot be empty!"]
-    }
+    }],
+    username:{
+      type:String
+    },
+    replys:[
+        {username:String},
+        {replyText: String}
+    ]
 
 }
 
@@ -103,11 +110,14 @@ app.get('/forum_edit', (req, res) => {
 });
 
 app.post("/forum_edit", (req, res) => {
+
+    const tagArr = req.body.tags.split('#')
+
     const post = {
         title: req.body.title,
         url: req.body.url,
         postdetail: req.body.postdetail,
-        tags: req.body.tags
+        tags: tagArr
     }
 
     console.log(req.body.tags)
@@ -124,7 +134,7 @@ app.post("/forum_edit", (req, res) => {
                         + "&input=" + JSON.stringify(post)
                         + "&postId=" + req.body._id);
                 } else {
-                    res.redirect('/post_detail.html?post_id=' + req.body._id)
+                    res.redirect('/html/post_detail.html?post_id=' + req.body._id)
                 }
             }
         )
@@ -139,12 +149,30 @@ app.post("/forum_edit", (req, res) => {
             } else {
                 console.log(new_post._id)
                 console.log(new_post)
-                //res.redirect('/post_detail.html?post_id=' + new_post._id)
+                res.redirect('/html/post_detail.html?post_id=' + new_post._id)
                 //res.redirect('/forum')
 
             }
         })
     }
+});
+
+app.post('/delete_post_by_id', (req, res) => {
+    Post.deleteOne(
+        {"_id": req.body._id},
+        {},
+        (err) => {
+            if (err) {
+                res.send({
+                    "message": "database deletion error"
+                })
+            } else {
+                res.send({
+                    "message": "success"
+                })
+            }
+        }
+    )
 });
 
 

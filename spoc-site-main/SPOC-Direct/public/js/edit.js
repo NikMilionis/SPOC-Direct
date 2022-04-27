@@ -1,4 +1,4 @@
-function fillPost(post){
+function fillPost(post) {
     $('#title').val(post.title);
     $('#url').val(post.url);
     $('#postdetail').val(post.postdetail);
@@ -28,11 +28,19 @@ if (errorMessage) {
 }
 
 
-if(post_id && !errorMessage){
-    $.getJSON('/get_post_by_id?post_id='+post_id).done((data)=>{
-        if (data['message']='success'){
+if (post_id && !errorMessage) {
+    $.getJSON('/get_post_by_id?post_id=' + post_id).done((data) => {
+        if (data['message'] = 'success') {
             console.log(data.data)
             fillPost(data.data)
         }
     })
+}
+
+function OnCancel() {
+    if (post_id) {
+        return
+    } else {
+        window.location.href = "/forum"
+    }
 }

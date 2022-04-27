@@ -35,3 +35,13 @@ $(document).ready(function () {
 function onEdit(){
     location.href="forum_edit.html?post_id="+post_id;
 }
+
+function onDelete(){
+    $.post('/delete_post_by_id', {_id:post_id}).done((data)=>{
+        if(data.message==="success"){
+            location.href="/forum";
+        }else{
+            //error
+        };
+    });
+}
