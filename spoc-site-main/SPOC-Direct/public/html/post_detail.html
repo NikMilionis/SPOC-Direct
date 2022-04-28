@@ -77,14 +77,15 @@
 
 
 <section id="post_info">
-    <div class="col-8 mx-auto">
+    <div class="col-md-9 col-lg-8 mx-auto">
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-10">
-                    <h1 id="title">Title</h1>
+                    <div class="col-xl-10 col-lg-12">
+                        <h1 id="title">Title</h1>
                     </div>
-                    <div class="col-2">
+                    <div class="col-xl-2 col-lg-12">
+                        <!--  Make sure group isnt visible if not original poster or admin-->
                         <div class="btn-group">
                             <button onclick="onEdit()" class="btn btn-primary">Edit</button>
                             <button onclick="onDelete()" class="btn btn-danger">Delete</button>
@@ -106,7 +107,7 @@
                 </div>
             </div>
             <div class="col-2 mx-3 mb-3">
-                <button class="btn btn-info">Reply</button>
+                <button class="btn btn-info" onclick="onReply()">Reply</button>
             </div>
         </div>
     </div>
@@ -114,9 +115,10 @@
 
 <section id="replies">
     <div class="col-8 mx-auto">
-        <div class="card">
-            <div class="card-body">
+        <ul id="reply_list" class="list-group">
 
+        </ul>
+    </div>
 </section>
 
 </body>

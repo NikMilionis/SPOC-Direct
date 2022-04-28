@@ -36,11 +36,11 @@ const forumPostSchema = {
         type: String,
         require: [true, "Tags cannot be empty!"]
     }],
-    username:{
-      type:String
+    username: {
+        type: String
     },
-    replys:[
-        {username:String},
+    replys: [
+        //{username: String},
         {replyText: String}
     ]
 
@@ -192,4 +192,45 @@ app.get('/login', (req, res) => {
     }
 });
 
+app.get('/reply', (req, res) => {
+
+})
+
+app.post('/reply', (req, res) => {
+
+    const post_id = req.body._id
+
+    const replyInfo = {
+        //username: "testname",
+        replyText: req.body.replyText
+    }
+    console.log(post_id)
+    console.log(replyInfo)
+
+    if (req.body._id) {
+        Post.updateOne(
+            {_id: post_id},
+            {
+                $push: {
+                    replys: replyInfo
+                }
+            },
+            {},
+            (err)=>{
+                if(err){
+                    res.send({
+                        message:"database error"
+                    })
+                } else {
+                    // res.send({
+                    //     message:"success"
+                    // })
+                    res.redirect('/html/post_detail.html?post_id=' + post_id)
+                }
+            }
+        )
+    } else {
+        res.redirect('/forum')
+    }
+})
 
