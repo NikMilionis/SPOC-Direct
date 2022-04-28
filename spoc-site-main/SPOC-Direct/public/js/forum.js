@@ -1,6 +1,6 @@
 function get_post_object(post, idx) {
 
-    console.log(post.timepost[0].date)
+     //console.log(post.timepost[0].date)
     return `<li class="list-group-item" data-p="${post._id}">
                 <div class="row ${idx % 2 === 0 ? 'even_row' : 'odd_row'}">
                     <div class="col-lg-3 imgDiv">
@@ -34,14 +34,14 @@ function showList(posts) {
 // $('body').on('click', function (){
 //     const time = new Date().toLocaleTimeString()
 //     times.push(time)
-//     console.log(time)
-//     console.log(times)
+  //console.log(time)
+  //console.log(times)
 // })
 
 $.getJSON("/get_all_posts")
     .done(function (data) {
         if (data.message === "success") {
-            console.log(data.data)
+             //console.log(data.data)
             showList(data.data);
         }
     });

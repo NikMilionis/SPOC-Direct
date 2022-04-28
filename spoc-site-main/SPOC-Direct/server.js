@@ -136,7 +136,7 @@ app.get('/forum_edit', (req, res) => {
 
 app.post("/forum_edit", (req, res) => {
 
-    const tagArr = req.body.tags.split('#')
+    const tagArr = req.body.tags.split(' ,')
 
     const timeTime = new Date().toLocaleTimeString();
     const dateDate = new Date().toLocaleDateString()
