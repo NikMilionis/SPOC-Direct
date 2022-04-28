@@ -54,11 +54,16 @@ function onReply(){
 
 function get_reply_object(reply, idx) {
 
-    console.log(reply.reply)
+    console.log(reply.timereply[0].time)
     return `<li class="list-group-item"">
                 <div class="row">
-                    <div class="col-lg-6 infoDiv">
-                        <h5>defaultUSerName</h5>
+                    <div class="col-lg-8">
+                        <div class="col-6">
+                        <h5>${reply.username}</h5>
+                        </div>
+                        <div class="col-6">
+                        <p>${reply.timereply[0].date} ${reply.timereply[0].time}</p>
+                        </div>
                         <p>${reply.replyText}</p>
                     </div>
                 </div>
@@ -68,7 +73,7 @@ function get_reply_object(reply, idx) {
 function showReplies(reply) {
     $('#reply_list').empty();
 
-    console.log(reply.replys)
+    console.log(reply)
     reply.replys.forEach((replys, idx) => {
         $('#reply_list').append(get_reply_object(replys, idx));
     });
