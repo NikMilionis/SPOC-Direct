@@ -58,13 +58,13 @@
                             <li><a href="/forum">Forum</a></li>
 <li><a href="/election">Election</a></li>
 
-                            <li><a href="#" class="login">user</a>
+                            <li><a href="#" id="showname"><i class="fa fa-user"></i></a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
                                     <li><a href="/login" class="login">Log In</a></li>
                                     <li><a href="/register" class="login">Register</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
-                                    <li><a href="/account">My account</a></li>
+                                    <li><a href="/account" class="logout">My account</a></li>
                                     <li><a href="/logout" class="logout">Log Out</a></li>
                                 </ul>
                             </li>
@@ -79,15 +79,18 @@
 
 <section id="post_info">
     <div class="col-md-9 col-lg-8 mx-auto">
+        <div class="btn-group">
+            <button class="btn btn-light" type="button" onclick="onReturn()"><i class="fa fa-arrow-left"></i>Return</button>
+            <button onclick="onEdit()" class="btn btn-primary logout">Edit</button>
+            <button onclick="onDelete()" class="btn btn-danger logout">Delete</button>
+        </div>
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    <!--  Make sure group isnt visible if not original poster or admin-->
+
                     <div class="col-xl-2 col-lg-12">
-                        <!--  Make sure group isnt visible if not original poster or admin-->
-                        <div class="btn-group">
-                            <button onclick="onEdit()" class="btn btn-primary">Edit</button>
-                            <button onclick="onDelete()" class="btn btn-danger">Delete</button>
-                        </div>
+
                     </div>
                     <div class="col-xl-10 col-lg-12">
                         <h1 id="title">Title</h1>

@@ -24,18 +24,18 @@ mongoose.connect('mongodb://127.0.0.1:27017/forumDB',
         console.log("db connection successful");
     });
 
-const userSchema=new mongoose.Schema({
-    username:{
-        type:String,
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
         minlength: 3
     },
-    password:{
+    password: {
         type: String,
     },
-    email:{
+    email: {
         type: String,
     },
-    profile:{
+    profile: {
         type: String,
     }
 })
@@ -51,7 +51,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 const date = new Date()
-const year =date.getFullYear();
+const year = date.getFullYear();
 
 // console.log(year)
 
@@ -165,12 +165,18 @@ app.get("/get_all_posts", function (req, res) {
 
 
 app.get('/forum_edit', (req, res) => {
-    if (req.query.error) {
-        res.redirect("/html/forum_edit.html?error=" + req.query.error);
+    if (req.isAuthenticated()) {
+        if (req.query.error) {
+            res.redirect("/html/forum_edit.html?error=" + req.query.error);
+        } else {
+            res.redirect("/html/forum_edit.html");
+        }
     } else {
-        res.redirect("/html/forum_edit.html");
+        res.redirect("/login")
     }
-});
+
+})
+;
 
 app.post("/forum_edit", (req, res) => {
 
@@ -185,6 +191,7 @@ app.post("/forum_edit", (req, res) => {
         title: req.body.title,
         url: req.body.url,
         postdetail: req.body.postdetail,
+        username: req.user.username,
         tags: tagArr,
         timepost: {
             time: timeTime,
@@ -277,17 +284,17 @@ app.get('/get_user_by_id',
     });
 
 
-app.get('/get_current_user', function (req,res){
-    if(req.isAuthenticated()){
+app.get('/get_current_user', function (req, res) {
+    if (req.isAuthenticated()) {
         res.send({
-            message:"success",
+            message: "success",
             data: req.user
 
         })
-    }else{
+    } else {
         res.send({
-            message:"user not found",
-            data:{}
+            message: "user not found",
+            data: {}
         })
     }
 });
@@ -307,16 +314,24 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    if (req.query.error) {
-        res.sendFile("/html/login.html?error=" + req.query.error);
+    if (req.isAuthenticated()) {
+        res.redirect("/")
     } else {
-        res.redirect("/html/login.html");
+        if (req.query.error) {
+            res.sendFile("/html/login.html?error=" + req.query.error);
+        } else {
+            res.redirect("/html/login.html");
+        }
     }
 });
 
 app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect("/");
+    if (req.isAuthenticated()) {
+        req.logout();
+        res.redirect("/");
+    } else {
+        res.redirect('/')
+    }
 });
 
 app.post('/login', (req, res) => {
@@ -324,22 +339,22 @@ app.post('/login', (req, res) => {
         username: req.body.username,
         password: req.body.password
     });
-    req.login(user, (err)=>{
-        if(err){
+    req.login(user, (err) => {
+        if (err) {
             res.redirect("/html/login.html?error=Database error");
-        } else{
-            const authenticate=passport.authenticate('local',{
-                successRedirect:"/",
-                failureRedirect:"/html/login.html?error= username and password do not match"
+        } else {
+            const authenticate = passport.authenticate('local', {
+                successRedirect: "/",
+                failureRedirect: "/html/login.html?error= username and password do not match"
             })
-            authenticate(req,res);
+            authenticate(req, res);
         }
     })
 });
 
 
 app.post('/register', (req, res) => {
-    const newUser={
+    const newUser = {
         username: req.body.username,
         password: req.body.password,
         fullname: req.body.email,
@@ -349,37 +364,43 @@ app.post('/register', (req, res) => {
     console.log(req.body)
 
 
-    User.register(newUser, req.body.password, (err, user)=>{
-        if(err){
+    User.register(newUser, req.body.password, (err, user) => {
+        if (err) {
             console.log(err);
             res.redirect('/html/register.html?error=' + err);
 
-        }else{
+        } else {
             console.log(user);
-            const authenticate= passport.authenticate('local');
-            authenticate(req, res, ()=>{
+            const authenticate = passport.authenticate('local');
+            authenticate(req, res, () => {
                 res.redirect("/html/account.html");
             });
         }
     })
 });
 app.get("/account", (req, res) => {
-    //save the user to the movie
-    const user={
+    //save the user
+    const user = {
         username: req.body.username,
         password: req.body.password,
         fullname: req.body.email,
         profile: req.body.avatar
     }
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         res.redirect("/html/account.html");
-    }else{
+    } else {
         res.redirect("/html/login.html");
     }
 });
 
 app.get('/reply', (req, res) => {
-
+    if (req.isAuthenticated()) {
+        if (req.query.error) {
+            res.redirect("/html/reply.html?error=" + req.query.error);
+        } else {
+            res.redirect("/html/reply.html");
+        }
+    }
 })
 
 app.post('/reply', (req, res) => {
@@ -390,7 +411,7 @@ app.post('/reply', (req, res) => {
     const dateDate = new Date().toLocaleDateString()
 
     const replyInfo = {
-        username: "testname",
+        username: req.user.username,
         replyText: req.body.replyText,
         timereply: {
             time: timeTime,
@@ -434,4 +455,16 @@ app.get('/election', (req, res) => {
         res.redirect("/html/election.html");
     }
 });
+
+app.get('/election_vote',(req,res)=>{
+    if (req.isAuthenticated()) {
+        if (req.query.error) {
+            res.redirect("/html/election._votehtml?error=" + req.query.error);
+        } else {
+            res.redirect("/html/election_vote.html");
+        }
+    } else {
+        res.redirect('/login')
+    }
+})
 
