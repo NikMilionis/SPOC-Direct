@@ -47,9 +47,17 @@ $('form').on('submit', function (e) {
         })
     }
 });
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
 if (urlParams.get("error")) {
     $('#error_msg').text(urlParams.get("error"));
 }
 function redr(){
     location.href = "/";
 }
+
+// $('body').on('click', function () {
+//     console.log($('#username').val())
+//     console.log('anything')
+// })

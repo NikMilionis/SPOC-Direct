@@ -64,14 +64,14 @@
                             <li><a href="/forum">Forum</a></li>
 <li><a href="/election">Election</a></li>
                             <li><a class="scrollTo" data-scrollTo="about" href="#">About Us</a></li>
-                            <li><a href="#">User</a>
+                            <li><a href="#" class="login">user</a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a href="/login">Log In</a></li>
-                                    <li><a href="/register">Create New Account</a></li>
+                                    <li><a href="/login" class="login">Log In</a></li>
+                                    <li><a href="/register" class="login">Create New Account</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
-                                    <li><a href="#">My Account</a></li>
-                                    <li><a href="#">Log out</a></li>
+                                    <li><a href="/account">My account</a></li>
+                                    <li><a href="/logout" class="logout">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -92,7 +92,7 @@
                     <h2>Science Fiction People of Clark</h2>
                     <span> The premier club for Sci-Fi fans</span>
                     <div class="blue-button">
-                        <a href="/register">Join Us</a>
+                        <a href="/register" class="login">Join Us</a>
                         <!-- Sends the user to the Register page -- unless already logged in-->
                     </div>
                 </div>
@@ -377,7 +377,7 @@
                                 <hr/>
                                 </p>
                                 <div class="blue-button">
-                                    <a href="/register">Join Us! </a>
+                                    <a href="/register" class="login">Join Us! </a>
                                 </div>
                             </div>
                         </div>
@@ -409,8 +409,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <ul>
-                                <li><a href="/register"><i class="fa fa-angle-right"></i>Register</a></li>
-                                <li><a href="/login"><i class="fa fa-angle-right"></i>Login</a></li>
+                                <li><a href="/register" class="login"><i class="fa fa-angle-right"></i>Register</a></li>
+                                <li><a href="/login" class="login"><i class="fa fa-angle-right"></i>Login</a></li>
                                 <li><a href="/profile"><i class="fa fa-angle-right"></i>My Profile</a></li>
                             </ul>
                         </div>

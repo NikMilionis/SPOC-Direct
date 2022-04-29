@@ -11,6 +11,18 @@ const errorMessage = urlParams.get('error_message');
 const input = JSON.parse(urlParams.get('input'));
 const post_id = urlParams.get('post_id');
 
+$(document).ready(()=>{
+    $.getJSON('/get_current_user').done((data)=>{
+        if(data.message==="success"){
+            const user = data.data;
+            $('.login').remove();
+            $('#showname').text(user.fullname);
+        }else{
+            $('.logout').remove();
+        }
+    })
+})
+
 
 $('form').on('submit', function () {
     if (post_id) {

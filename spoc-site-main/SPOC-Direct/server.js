@@ -121,7 +121,7 @@ app.get('/', function (req, res) {
 
 app.get('/forum', (req, res) => {
     if (req.query.error) {
-        res.redirect("/forum.html?error=" + req.query.error);
+        res.redirect("/html/forum.html?error=" + req.query.error);
     } else {
         res.redirect("/html/forum.html");
     }
@@ -166,7 +166,7 @@ app.get("/get_all_posts", function (req, res) {
 
 app.get('/forum_edit', (req, res) => {
     if (req.query.error) {
-        res.redirect("/forum_edit.html?error=" + req.query.error);
+        res.redirect("/html/forum_edit.html?error=" + req.query.error);
     } else {
         res.redirect("/html/forum_edit.html");
     }
@@ -201,7 +201,7 @@ app.post("/forum_edit", (req, res) => {
             {runValidators: true},
             (err, info) => {
                 if (err) {
-                    res.redirect('forum_edit.html?error_message='
+                    res.redirect('/html/forum_edit.html?error_message='
                         + err["message"]
                         + "&input=" + JSON.stringify(post)
                         + "&postId=" + req.body._id);
@@ -216,7 +216,7 @@ app.post("/forum_edit", (req, res) => {
         np.save((err, new_post) => {
             if (err) {
                 console.log(err["message"]);
-                res.redirect('forum_edit.html?error_message=' + err["message"]
+                res.redirect('/html/forum_edit.html?error_message=' + err["message"]
                     + "&input=" + JSON.stringify(post) + "&post_id=" + req.body._id)
             } else {
                 console.log(new_post._id)
@@ -250,7 +250,7 @@ app.post('/delete_post_by_id', (req, res) => {
 
 app.get('/register', (req, res) => {
     if (req.query.error) {
-        res.redirect("/register.html?error=" + req.query.error);
+        res.redirect("/html/register.html?error=" + req.query.error);
     } else {
         res.redirect("/html/register.html");
     }
@@ -297,17 +297,10 @@ app.get('/logout', (req, res) => {
     res.redirect("/");
 });
 
-app.get('/forum', (req, res) => {
-    if (req.query.error) {
-        res.redirect("/forum.html?error=" + req.query.error);
-    } else {
-        res.redirect("/html/forum.html");
-    }
-});
 
 app.get('/register', (req, res) => {
     if (req.query.error) {
-        res.redirect("/register.html?error=" + req.query.error);
+        res.redirect("/html/register.html?error=" + req.query.error);
     } else {
         res.redirect("/html/register.html");
     }
@@ -315,7 +308,7 @@ app.get('/register', (req, res) => {
 
 app.get('/login', (req, res) => {
     if (req.query.error) {
-        res.sendFile("/login.html?error=" + req.query.error);
+        res.sendFile("/html/login.html?error=" + req.query.error);
     } else {
         res.redirect("/html/login.html");
     }
@@ -333,11 +326,11 @@ app.post('/login', (req, res) => {
     });
     req.login(user, (err)=>{
         if(err){
-            res.redirect("/login?error=Database error");
+            res.redirect("/html/login.html?error=Database error");
         } else{
             const authenticate=passport.authenticate('local',{
                 successRedirect:"/",
-                failureRedirect:"/login?error= username and password do not match"
+                failureRedirect:"/html/login.html?error= username and password do not match"
             })
             authenticate(req,res);
         }
@@ -352,10 +345,14 @@ app.post('/register', (req, res) => {
         fullname: req.body.email,
         profile: req.body.avatar
     }
+
+    console.log(req.body)
+
+
     User.register(newUser, req.body.password, (err, user)=>{
         if(err){
             console.log(err);
-            res.redirect('/register?error=' + err);
+            res.redirect('/html/register.html?error=' + err);
 
         }else{
             console.log(user);
@@ -377,7 +374,7 @@ app.get("/account", (req, res) => {
     if(req.isAuthenticated()){
         res.redirect("/html/account.html");
     }else{
-        res.redirect("/html/login");
+        res.redirect("/html/login.html");
     }
 });
 

@@ -58,14 +58,14 @@
                             <li><a href="/forum">Forum</a></li>
 <li><a href="/election">Election</a></li>
 
-                            <li><a href="#">User</a>
+                            <li><a href="#" class="login">user</a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a class="active" href="/login">Log In</a></li>
-                                    <li><a href="/register">Register</a></li>
+                                    <li><a class="active" href="/login" class="login">Log In</a></li>
+                                    <li><a href="/register" class="login">Register</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
-                                    <li><a href="#">My Account</a></li>
-                                    <li><a href="#">Log out</a></li>
+                                    <li><a href="/account">My account</a></li>
+                                    <li><a href="/logout" class="logout">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -77,16 +77,16 @@
 </div>
 
 <div class="mb-3 container">
-    <form class="m-2 d-flex justify-content-center">
+    <form class="m-2 d-flex justify-content-center" action="/login" method="post">
         <div class="card col-6">
             <h3 class="mx-2">Log In</h3>
             <div class="col-10 mt-3 mx-2">
                 <label for="username" class="form-label">Username:</label>
-                <input type="text" class="form-control" id="username" placeholder="username">
+                <input type="text" class="form-control" name="username" id="username" placeholder="username">
             </div>
             <div class="col-10 mb-4 mx-2">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="password">
             </div>
             <div class="row mx-1">
                 <div class="d-flex justify-content-between mb-2">
@@ -119,8 +119,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <ul>
-                                <li><a href="/register"><i class="fa fa-angle-right"></i>Register</a></li>
-                                <li><a href="/login"><i class="fa fa-angle-right"></i>Login</a></li>
+                                <li><a href="/register" class="login"><i class="fa fa-angle-right"></i>Register</a></li>
+                                <li><a href="/login" class="login"><i class="fa fa-angle-right"></i>Login</a></li>
                                 <li><a href="/profile"><i class="fa fa-angle-right"></i>My Profile</a></li>
                             </ul>
                         </div>
