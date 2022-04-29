@@ -36,7 +36,11 @@ $(document).ready(function () {
                 if (data["message"] === "success") {
                     let user = data["data"];
                     load_user(user);
+                    $('.login').remove();
+                    $('#showname').text(user.fullname);
                     console.log("welcome user")
+                }else{
+                    $('.logout').remove();
                 }
             });
 });

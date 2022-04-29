@@ -1,3 +1,4 @@
+const urlParams = new URLSearchParams(window.location.search);
 $('form').on('submit', function (e) {
     let username = $('#username').val();
     let pass = $('#password').val();
@@ -32,7 +33,7 @@ $('form').on('submit', function (e) {
                 if(data.message==="success"){
                     const user = data.data;
                     $('.login').remove();
-                    $('#showname').text(user.fullname);
+                    $('#showname').text(user.username);
                     $('.like').on('click', function () {
                         console.log('this shit sucks');
 
