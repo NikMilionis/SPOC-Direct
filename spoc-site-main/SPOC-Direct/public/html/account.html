@@ -31,23 +31,23 @@
                     <button id="primary-nav-button" type="button">Menu</button>
                     <a href="/">
                         <div class="logo">
-                            <img src="../img/trueIcon.png" alt="SPOC">
+                            <img src="/img/trueIcon.png" alt="SPOC">
                         </div>
                     </a>
                     <nav id="primary-nav" class="dropdown cf">
                         <ul class="dropdown menu">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="#">Events</a></li>
+                            <li class='active'><a href="/">Home</a></li>
+                            <li><a class="scrollTo" data-scrollTo="blog" href="#">Events</a></li>
                             <li><a href="/forum">Forum</a></li>
-
+                            <li><a href="/election">Election</a></li>
                             <li><a href="#">User</a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a href="/login">Log In</a></li>
-                                    <li><a class="active" href="/register">Register</a></li>
+                                    <li><a class="login" href="/login">Log In</a></li>
+                                    <li><a class="login" href="/register">Create New Account</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
-                                    <li><a href="#">My Account</a></li>
-                                    <li><a href="#">Log out</a></li>
+                                    <li><a class="login" href="/account">My Account</a></li>
+                                    <li><a class="logout" href="/logout">Log out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -57,6 +57,7 @@
         </div>
     </header>
 </div>
+
 
 <body class="container">
 
