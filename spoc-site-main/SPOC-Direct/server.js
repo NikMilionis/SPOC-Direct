@@ -256,6 +256,7 @@ app.get('/register', (req, res) => {
     }
 });
 
+
 app.get('/get_user_by_id',
     function (req, res) {
         User.find({"_id": req.query.user_id}, function (err, data) {
@@ -305,14 +306,6 @@ app.get('/forum', (req, res) => {
     }
 });
 
-app.get('/register', (req, res) => {
-    if (req.query.error) {
-        res.redirect("/register.html?error=" + req.query.error);
-    } else {
-        res.redirect("/html/register.html");
-    }
-});
-
 app.get('/login', (req, res) => {
     if (req.query.error) {
         res.sendFile("/login.html?error=" + req.query.error);
@@ -349,7 +342,7 @@ app.post('/register', (req, res) => {
     const newUser={
         username: req.body.username,
         password: req.body.password,
-        fullname: req.body.email,
+        email: req.body.email,
         profile: req.body.avatar
     }
     User.register(newUser, req.body.password, (err, user)=>{
