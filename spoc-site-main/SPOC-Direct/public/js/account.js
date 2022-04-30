@@ -15,22 +15,18 @@ function get_car_personal(car){
 
 function load_user(user) {
     $('#name').text(user.username);
-    $('#profile_img').attr('src', user.avatar);
+    $('#profile_img').attr('src', user.profile);
 }
-
-function get_car_block(car, idx) {
-    return `<div class="car_block ${idx % 2 === 0 ? 'even_row' : 'odd_row'}">
-                <div class="row">
-                    <div class="col">${car.year},</div>
-                    <div class="col">${car.make},</div>
-                    <div class="col">${car.model},</div>
-                    <div class="col">${car.color},</div>
-                    <div class="col">${car.price}</div>
-                </div>
-            </div>`
-}
-
 $(document).ready(function () {
+    $.getJSON("/get_all_tags")
+        .done(function (data) {
+            console.log(data.data)
+            if (data.message === "success") {
+                data.data.forEach(likedtag=>{
+                    $('#tag_list_personal').append(get_tags(likedtag));
+                })
+            }
+        });
         $.getJSON('/get_current_user')
             .done(function (data) {
                 if (data["message"] === "success") {
@@ -38,7 +34,7 @@ $(document).ready(function () {
                     load_user(user);
                     $('.login').remove();
                     $('#showname').text(user.fullname);
-                    console.log("welcome user")
+                    console.log(user)
                 }else{
                     $('.logout').remove();
                 }

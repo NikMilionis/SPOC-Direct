@@ -43,10 +43,24 @@ function showList(posts) {
   //console.log(times)
 // })
 
-$.getJSON("/get_all_posts")
-    .done(function (data) {
-        if (data.message === "success") {
-             //console.log(data.data)
-            showList(data.data);
+$(document).ready(()=>{
+    console.log('workin')
+    $.getJSON('/get_current_user').done((data)=>{
+        if(data.message==="success"){
+            const user = data.data;
+            $('.login').remove();
+            $('#showname').text(user.fullname);
+            $.getJSON("/get_all_posts")
+                .done(function (data) {
+                    if (data.message === "success") {
+                        //console.log(data.data)
+                        showList(data.data);
+                    }
+                });
+        }else{
+            $('.logout').remove();
+            location.href="/";
         }
-    });
+    })
+})
+
