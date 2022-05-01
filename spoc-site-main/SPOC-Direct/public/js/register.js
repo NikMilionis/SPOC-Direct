@@ -26,13 +26,13 @@ $('form').on('submit', function (e) {
         e.preventDefault();
         $('#error_msg').text("Profile Image URL cannot be empty");
     }
-        else{
+    else{
         $(document).ready(()=>{
             $.getJSON('/get_current_user').done((data)=>{
                 if(data.message==="success"){
                     const user = data.data;
                     $('.login').remove();
-                    $('#showname').text(user.fullname);
+                    $('#showname').text(user.username);
                     $('.like').on('click', function () {
                         console.log('this shit sucks');
 

@@ -62,6 +62,7 @@ $(document).ready(() => {
             $('#showname').text(user.username);
         } else {
             $('.logout').remove();
+            location.href="/";
         }
     })
 })

@@ -1,21 +1,21 @@
-function get_car_personal(car){
-    return `<li className="list-group-item">
-    <div className="row">
-                    <div class="col">${car.year}</div>
-                    <div class="col">${car.make}</div>
-                    <div class="col">${car.model}</div>
-                    <div class="col">${car.color}</div>
-                    <div class="col">${car.price}</div>
-    </div>
-</li>`
-}
+// function get_car_personal(car){
+//     return `<li className="list-group-item">
+//     <div className="row">
+//                     <div class="col">${car.year}</div>
+//                     <div class="col">${car.make}</div>
+//                     <div class="col">${car.model}</div>
+//                     <div class="col">${car.color}</div>
+//                     <div class="col">${car.price}</div>
+//     </div>
+// </li>`
+// }
 
 //testing commit again
 
 
 function load_user(user) {
     $('#name').text(user.username);
-    $('#profile_img').attr('src', user.avatar);
+    $('#profile_img').attr('src', user.profile);
 }
 
 function get_car_block(car, idx) {
@@ -31,30 +31,25 @@ function get_car_block(car, idx) {
 }
 
 $(document).ready(function () {
-        $.getJSON('/get_current_user')
-            .done(function (data) {
-                if (data["message"] === "success") {
-                    let user = data["data"];
-                    load_user(user);
-                    console.log("welcome user")
-                    $('#showname').text(user.username);
-
-                }
-            });
+    $.getJSON("/get_all_tags")
+        .done(function (data) {
+            console.log(data.data)
+            if (data.message === "success") {
+                data.data.forEach(likedtag=>{
+                    $('#tag_list_personal').append(get_tags(likedtag));
+                })
+            }
+        });
+    $.getJSON('/get_current_user')
+        .done(function (data) {
+            if (data["message"] === "success") {
+                let user = data["data"];
+                load_user(user);
+                $('.login').remove();
+                $('#showname').text(user.fullname);
+                console.log(user)
+            }else{
+                $('.logout').remove();
+            }
+        });
 });
-
-//$('#showname').text("What the Dog");
-
-
-$(document).ready(()=>{
-    $.getJSON('/get_current_user').done((data)=>{
-        if(data.message==="success"){
-            const user = data.data;
-            $('.login').remove();
-            $('#showname').text(user.username);
-        }else{
-            $('.logout').remove();
-        }
-    })
-})
-
