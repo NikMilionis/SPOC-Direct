@@ -459,7 +459,7 @@ app.get('/election', (req, res) => {
 app.get('/election_vote',(req,res)=>{
     if (req.isAuthenticated()) {
         if (req.query.error) {
-            res.redirect("/html/election._votehtml?error=" + req.query.error);
+            res.redirect("/html/election._vote.html?error=" + req.query.error);
         } else {
             res.redirect("/html/election_vote.html");
         }
@@ -467,4 +467,26 @@ app.get('/election_vote',(req,res)=>{
         res.redirect('/login')
     }
 })
+
+app.get('/archive', (req, res) => {
+    if (req.query.error) {
+        res.redirect("/html/post_archive.html?error=" + req.query.error);
+    } else {
+        res.redirect("/html/post_archive.html");
+    }
+});
+
+
+app.get('/analytics',(req,res)=>{
+    if (req.isAuthenticated()) {
+        if (req.query.error) {
+            res.redirect("/html/analytics.html?error=" + req.query.error);
+        } else {
+            res.redirect("/html/analytics.html");
+        }
+    } else {
+        res.redirect('/login')
+    }
+})
+
 
