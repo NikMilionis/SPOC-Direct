@@ -14,6 +14,9 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
 
+    <!--    CanvasJS for Graphs-->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
     <!--    jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -77,10 +80,6 @@
         </div>
     </header>
 </div>
-
-
-<!--<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%236bb0e4&ctz=America%2FNew_York&showPrint=0&mode=MONTH&showTz=0&showCalendars=0&showTabs=0&showNav=1&src=N2VuZzRvY2gwYmFvYTFvam9kbnFqNWU4cThAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23EF6C00" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>-->
-
 
 <section id="elect_info">
     <div class="mx-4">
@@ -198,6 +197,21 @@
         </div>
     </div>
 </section>
+
+
+<div class="col-sm-12 col-md-12 mx-4">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Live Election Results:</h4>
+            <div class="row mx-3">
+                <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer1" style="height: 300px;"></div>
+                <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer2" style="height: 300px;"></div>
+                <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer3" style="height: 300px;"></div>
+                <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer4" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <footer class="footer mt-5">

@@ -769,6 +769,7 @@ app.post('/election_vote', async (req, res) => {
         )
     }
 
+    res.redirect('/election')
 
 })
 
