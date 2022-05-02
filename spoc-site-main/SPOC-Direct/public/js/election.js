@@ -67,9 +67,8 @@ $.getJSON("/get_secr")
 $.getJSON("/get_tres")
     .done(function (data) {
         if (data.message === "success") {
-            let count = 0;
             data.data.forEach(function (data, idx) {
-                ////console.log(data.Candidate)
+                console.log(data.Candidate)
 
                 $("#tresnum").text(counttres + " Candidates")                // tresInfo.push([data.Candidate , data.Votes, count])
                 //console.log(tresInfo)
