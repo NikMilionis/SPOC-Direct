@@ -34,7 +34,6 @@ $('form').on('submit', function (e) {
                     $('.login').remove();
                     $('#showname').text(user.username);
                     $('.like').on('click', function () {
-                        console.log('this shit sucks');
 
                     });
                 }else{

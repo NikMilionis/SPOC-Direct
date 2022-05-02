@@ -25,7 +25,25 @@ $(document).ready(() => {
 })
 
 
-$('form').on('submit', function () {
+$('form').on('submit', function (e) {
+    let sub = {
+        title: $('#title').val(),
+        url: $('#url').val(),
+        postdetail: $('#postdetail').val(),
+        tags: $('#tags').val()
+    }
+    if(sub.title.length === 0  ) {
+        e.preventDefault();
+        $('#error_msg').text("Title cannot be empty");
+    }else if(sub.postdetail.length===0) {
+        e.preventDefault();
+        $('#error_msg').text("Details cannot be empty");
+    }else if(sub.tags.length===0) {
+        e.preventDefault();
+        $('#error_msg').text("Tags cannot be empty");
+    }
+
+
     if (post_id) {
         $('form').append(() => {
             const input = $("<input>")

@@ -85,21 +85,26 @@ $.getJSON("/get_tres")
         }
     });
 
-function submitVote() {
+$('form').on('submit',function (set){
     const voteNames = {
-        pres: $('#presVote').val(),
-        vice: $('#viceVote').val(),
-        secr: $('#secrVote').val(),
-        tres: $('#tresVote').val(),
+        presVote: $('#presVote').val(),
+        viceVote: $('#viceVote').val(),
+        secrVote: $('#secrVote').val(),
+        tresVote: $('#tresVote').val(),
     }
 
-    let count = 0;
-    presInfo.forEach(function(info){
-        if(info[0] === voteNames.pres) {
-            //console.log(info[0])
-        }
-    })
+    if(voteNames.presVote.length===0) {
+        set.preventDefault();
+        $('#error_msg').text("President Vote cannot be empty");
+    } else if(voteNames.viceVote.length===0) {
+        set.preventDefault();
+        $('#error_msg').text("Vice President Vote cannot be empty");
+    } else if(voteNames.secrVote.length===0) {
+        set.preventDefault();
+        $('#error_msg').text("Secretary Vote cannot be empty");
+    } else if(voteNames.tresVote.length===0) {
+        set.preventDefault();
+        $('#error_msg').text("Treasurer Vote cannot be empty");
+    }
 
-        //console.log(secrInfo[1])
-
-}
+})
