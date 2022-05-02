@@ -1,7 +1,7 @@
 function get_post_object(post, idx) {
 
 
-     //console.log(post.timepost[0].date)
+    //console.log(post.timepost[0].date)
     return `<li class="list-group-item" data-p="${post._id}">
                 <div class="row ${idx % 2 === 0 ? 'even_row' : 'odd_row'}">
                     <div class="col-lg-3 imgDiv">
@@ -9,7 +9,8 @@ function get_post_object(post, idx) {
                     </div>
                     <div class="col-lg-6 infoDiv">
                         <h2 class="post_title">${post.title}</h2>
-                        <p class="tags">tags: ${post.tags}</p>
+                        <p class="tags">Tags: ${post.tags}</p>
+                        <p class="username">By: ${post.username}</p>
                         <p class="time">${post.timepost[0].date} ${post.timepost[0].time}</p>
                     </div>
               
@@ -25,7 +26,7 @@ function showList(posts) {
 
     $('.post_title').hover(function () {
         $(this).toggleClass('highlight_forum')
-        console.log("hovering")
+        // console.log("hovering")
 
     })
 
@@ -34,33 +35,34 @@ function showList(posts) {
         location.href = "post_detail.html?post_id=" + post_id;
     });
 }
+
 //timetest
 // let times = [];
 // $('body').on('click', function (){
 //     const time = new Date().toLocaleTimeString()
 //     times.push(time)
-  //console.log(time)
-  //console.log(times)
+//console.log(time)
+//console.log(times)
 // })
 
-$(document).ready(()=>{
-    console.log('workin')
-    $.getJSON('/get_current_user').done((data)=>{
-        if(data.message==="success"){
+$.getJSON("/get_all_posts")
+    .done(function (data) {
+        if (data.message === "success") {
+            //console.log(data.data)
+            showList(data.data);
+        }
+    });
+
+
+$(document).ready(() => {
+    $.getJSON('/get_current_user').done((data) => {
+        if (data.message === "success") {
             const user = data.data;
             $('.login').remove();
-            $('#showname').text(user.fullname);
-            $.getJSON("/get_all_posts")
-                .done(function (data) {
-                    if (data.message === "success") {
-                        //console.log(data.data)
-                        showList(data.data);
-                    }
-                });
-        }else{
+            $('#showname').text(user.username);
+        } else {
             $('.logout').remove();
-            location.href="/";
+            //location.href="/";
         }
     })
 })
-

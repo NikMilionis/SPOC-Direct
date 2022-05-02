@@ -12,7 +12,38 @@ const input = JSON.parse(urlParams.get('input'));
 const post_id = urlParams.get('post_id');
 
 
-$('form').on('submit', function () {
+$(document).ready(() => {
+    $.getJSON('/get_current_user').done((data) => {
+        if (data.message === "success") {
+            const user = data.data;
+            $('.login').remove();
+            $('#showname').text(user.username);
+        } else {
+            $('.logout').remove();
+        }
+    })
+})
+
+
+$('form').on('submit', function (e) {
+    let sub = {
+        title: $('#title').val(),
+        url: $('#url').val(),
+        postdetail: $('#postdetail').val(),
+        tags: $('#tags').val()
+    }
+    if(sub.title.length === 0  ) {
+        e.preventDefault();
+        $('#error_msg').text("Title cannot be empty");
+    }else if(sub.postdetail.length===0) {
+        e.preventDefault();
+        $('#error_msg').text("Details cannot be empty");
+    }else if(sub.tags.length===0) {
+        e.preventDefault();
+        $('#error_msg').text("Tags cannot be empty");
+    }
+
+
     if (post_id) {
         $('form').append(() => {
             const input = $("<input>")
@@ -31,7 +62,7 @@ if (errorMessage) {
 if (post_id && !errorMessage) {
     $.getJSON('/get_post_by_id?post_id=' + post_id).done((data) => {
         if (data['message'] = 'success') {
-             //console.log(data.data)
+            //console.log(data.data)
             fillPost(data.data)
         }
     })

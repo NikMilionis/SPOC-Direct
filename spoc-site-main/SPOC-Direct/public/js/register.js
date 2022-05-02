@@ -1,4 +1,3 @@
-const urlParams = new URLSearchParams(window.location.search);
 $('form').on('submit', function (e) {
     let username = $('#username').val();
     let pass = $('#password').val();
@@ -27,7 +26,7 @@ $('form').on('submit', function (e) {
         e.preventDefault();
         $('#error_msg').text("Profile Image URL cannot be empty");
     }
-        else{
+    else{
         $(document).ready(()=>{
             $.getJSON('/get_current_user').done((data)=>{
                 if(data.message==="success"){
@@ -35,7 +34,6 @@ $('form').on('submit', function (e) {
                     $('.login').remove();
                     $('#showname').text(user.username);
                     $('.like').on('click', function () {
-                        console.log('this shit sucks');
 
                     });
                 }else{
@@ -48,9 +46,32 @@ $('form').on('submit', function (e) {
         })
     }
 });
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
 if (urlParams.get("error")) {
     $('#error_msg').text(urlParams.get("error"));
 }
 function redr(){
     location.href = "/";
 }
+
+// $('body').on('click', function () {
+//     console.log($('#username').val())
+//     console.log('anything')
+// })
+
+
+
+
+$(document).ready(()=>{
+    $.getJSON('/get_current_user').done((data)=>{
+        if(data.message==="success"){
+            const user = data.data;
+            $('.login').remove();
+            $('#showname').text(user.username);
+        }else{
+            $('.logout').remove();
+        }
+    })
+})

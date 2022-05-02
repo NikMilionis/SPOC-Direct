@@ -16,6 +16,21 @@ $('form').on('submit', function (e) {
         e.preventDefault();
         $('#error_msg').text("Password cannot be empty");
     } else {
-        console.log("form FAILED, idiot.");
+        console.log("Something failed, Sworrwy x<");
     }
 });
+
+
+
+
+$(document).ready(()=>{
+    $.getJSON('/get_current_user').done((data)=>{
+        if(data.message==="success"){
+            const user = data.data;
+            $('.login').remove();
+            $('#showname').text(user.username);
+        }else{
+            $('.logout').remove();
+        }
+    })
+})

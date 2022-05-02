@@ -11,7 +11,7 @@ function load_post(post) {
     $('#url').attr("src", post.url);
     $('#postdetail').text(post.postdetail);
     $('#tags').text(post.tags);
-    $('#username').text("usergoeshere")
+    $('#username').text(post.username);
     $('#date').text(post.timepost[0].time
         + " " + post.timepost[0].date);
     $('title').text(post.title + ' - ' + "usergoeshere")
@@ -22,6 +22,22 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const post_id = urlParams.get('post_id');
  //console.log(post_id);
+
+
+
+
+  $(document).ready(()=>{
+      $.getJSON('/get_current_user').done((data)=>{
+          if(data.message==="success"){
+              const user = data.data;
+              $('.login').remove();
+              $('#showname').text(user.username);
+          }else{
+              $('.logout').remove();
+          }
+      })
+  })
+
 
 $(document).ready(function () {
 
@@ -43,6 +59,10 @@ $(document).ready(function () {
 function onEdit() {
     location.href = "forum_edit.html?post_id=" + post_id;
 }
+function onReturn(){
+    location.href = "/forum";
+
+}
 
 function onDelete() {
     $.post('/delete_post_by_id', {_id: post_id}).done((data) => {
@@ -56,7 +76,17 @@ function onDelete() {
 }
 
 function onReply() {
-    location.href = "reply.html?post_id=" + post_id;
+    $(document).ready(()=>{
+        $.getJSON('/get_current_user').done((data)=>{
+            if(data.message==="success"){
+                location.href = "reply.html?post_id=" + post_id;
+
+            }else{
+                location.href = "/login";
+
+            }
+        })
+    })
 }
 
 function get_reply_object(reply, idx) {
@@ -86,3 +116,4 @@ function showReplies(reply) {
     });
 
 }
+
