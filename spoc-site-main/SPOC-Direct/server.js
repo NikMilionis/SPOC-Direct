@@ -19,10 +19,52 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb://127.0.0.1:27017/forumDB',
+mongoose.connect('mongodb://127.0.0.1:27017/spocDB',
     {useNewUrlParser: true}, function () {
         console.log("db connection successful");
     });
+
+const presSchema = new mongoose.Schema({
+    Candidate: {
+        type: String
+    },
+    Votes: {
+        type: Number
+    }
+})
+const vpSchema = new mongoose.Schema({
+    Candidate: {
+        type: String
+    },
+    Votes: {
+        type: Number
+    }
+})
+const secrSchema = new mongoose.Schema({
+    Candidate: {
+        type: String
+    },
+    Votes: {
+        type: Number
+    }
+})
+const tresSchema = new mongoose.Schema({
+    Candidate: {
+        type: String
+    },
+    Votes: {
+        type: Number
+    }
+})
+
+const voterSchema = new mongoose.Schema({
+    username: {
+        type: String
+    }
+})
+
+
+
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -43,6 +85,12 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose)
 
 const User = mongoose.model('User', userSchema);
+
+const Pres = mongoose.model('Pres', presSchema);
+const Vp = mongoose.model('Vp', vpSchema);
+const Secr = mongoose.model('Secr', secrSchema);
+const Tres = mongoose.model('Tres', tresSchema);
+
 
 passport.use(User.createStrategy());
 
@@ -110,6 +158,7 @@ const forumPostSchema = {
 
 
 const Post = mongoose.model('Post', forumPostSchema)
+const Voted = mongoose.model('Voted', voterSchema)
 
 app.listen(3000, function () {
     console.log("server started at 3000");
@@ -149,6 +198,67 @@ app.get('/get_post_by_id',
 
 app.get("/get_all_posts", function (req, res) {
     Post.find(function (err, data) {
+        if (err) {
+            res.send({
+                "message": "internal database error",
+                "data": []
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
+
+app.get("/get_pres", function (req, res) {
+    Pres.find(function (err, data) {
+        if (err) {
+            res.send({
+                "message": "internal database error",
+                "data": []
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
+app.get("/get_vp", function (req, res) {
+    Vp.find(function (err, data) {
+        if (err) {
+            res.send({
+                "message": "internal database error",
+                "data": []
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
+app.get("/get_secr", function (req, res) {
+    Secr.find(function (err, data) {
+        if (err) {
+            res.send({
+                "message": "internal database error",
+                "data": []
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
+app.get("/get_tres", function (req, res) {
+    Tres.find(function (err, data) {
         if (err) {
             res.send({
                 "message": "internal database error",
@@ -203,7 +313,8 @@ app.post("/forum_edit", (req, res) => {
 
     if (req.body._id) {
         //update car
-        Post.updateOne({_id: req.body._id},
+        Post.updateOne(
+            {_id: req.body._id},
             {$set: post},
             {runValidators: true},
             (err, info) => {
@@ -456,7 +567,7 @@ app.get('/election', (req, res) => {
     }
 });
 
-app.get('/election_vote',(req,res)=>{
+app.get('/election_vote', (req, res) => {
     if (req.isAuthenticated()) {
         if (req.query.error) {
             res.redirect("/html/election._vote.html?error=" + req.query.error);
@@ -468,6 +579,199 @@ app.get('/election_vote',(req,res)=>{
     }
 })
 
+console.log(Voted)
+
+app.post('/election_vote', async (req, res) => {
+    const votes = {
+        pres: req.body.presVote,
+        vice: req.body.viceVote,
+        secr: req.body.secrVote,
+        tres: req.body.tresVote
+    }
+
+    let presVote = 0;
+    let viceVote = 0;
+    let secrVote = 0;
+    let tresVote = 0;
+
+    let presId = null;
+    let viceId = null;
+    let secrId = null;
+    let tresId = null;
+
+    if(req.isAuthenticated()){
+    console.log(req.user.username)
+
+        console.log("new user added")
+        const username = {
+            username: req.user.username
+        }
+        const nc = new Voted(username);
+        nc.save((err, added) => {
+            if (err) {
+                console.log(err["message"]);
+                //res.send("Database Error!")
+
+                  } else {
+                console.log(added._id + "This is new")
+            }
+        })
+    } else {
+        res.location("/login")
+    }
+    await Pres.find({Candidate: votes.pres}, (error, data) => {
+        if (error) {
+            console.log(error)
+        } else {
+           //console.log(data[0]._id)
+            presVote = data[0].Votes;
+            presId=data[0]._id
+            presVote++;
+
+        }
+    }).clone()
+
+    await Vp.find({Candidate: votes.vice}, (error, data) => {
+        if (error) {
+            console.log(error)
+        } else {
+           //console.log(data[0].Votes)
+            viceVote = data[0].Votes;
+            viceId=data[0]._id
+            viceVote++;
+
+        }
+    }).clone()
+
+    await Secr.find({Candidate: votes.secr}, (error, data) => {
+        if (error) {
+           //console.log(error)
+        } else {
+           //console.log(data[0].Votes)
+            secrVote = data[0].Votes
+            secrId=data[0]._id
+            secrVote++;
+
+        }
+    }).clone()
+
+    await Tres.find({Candidate: votes.tres}, (error, data) => {
+        if (error) {
+           //console.log(error)
+        } else {
+           //console.log(data[0].Votes)
+            tresVote = data[0].Votes;
+            tresId=data[0]._id
+            tresVote++;
+
+
+        }
+    }).clone()
+   //
+   //
+   // console.log(presVote + " heck")
+   // console.log(viceVote + " darn")
+   // console.log(secrVote + " frick")
+   // console.log(tresVote + " poop")
+
+
+
+    if(presId){
+        Pres.updateOne(
+            {_id: presId},
+            {
+                $set: {
+                    Votes: presVote
+                }
+            },
+            {},
+            (err) => {
+                if (err) {
+                    res.send({
+                        message: "database error " + err
+                    })
+                } else {
+                    // res.send({
+                    //     message:"success"
+                    // })
+                    // res.redirect('/html/post_detail.html?post_id=' + post_id)
+                }
+            }
+        )
+    }
+    if(viceId){
+        Vp.updateOne(
+            {_id: viceId},
+            {
+                $set: {
+                    Votes: viceVote
+                }
+            },
+            {},
+            (err) => {
+                if (err) {
+                    res.send({
+                        message: "database error " + err
+                    })
+                } else {
+                    // res.send({
+                    //     message:"success"
+                    // })
+                    // res.redirect('/html/post_detail.html?post_id=' + post_id)
+                }
+            }
+        )
+    }
+    if(secrId){
+        Pres.updateOne(
+            {_id: secrId},
+            {
+                $set: {
+                    Votes: secrVote
+                }
+            },
+            {},
+            (err) => {
+                if (err) {
+                    res.send({
+                        message: "database error " + err
+                    })
+                } else {
+                    // res.send({
+                    //     message:"success"
+                    // })
+                    // res.redirect('/html/post_detail.html?post_id=' + post_id)
+                }
+            }
+        )
+    }
+    if(tresId){
+        Pres.updateOne(
+            {_id: tresId},
+            {
+                $set: {
+                    Votes: tresVote
+                }
+            },
+            {},
+            (err) => {
+                if (err) {
+                    res.send({
+                        message: "database error " + err
+                    })
+                } else {
+                    // res.send({
+                    //     message:"success"
+                    // })
+                    // res.redirect('/html/post_detail.html?post_id=' + post_id)
+                }
+            }
+        )
+    }
+
+
+})
+
 app.get('/archive', (req, res) => {
     if (req.query.error) {
         res.redirect("/html/post_archive.html?error=" + req.query.error);
@@ -477,7 +781,7 @@ app.get('/archive', (req, res) => {
 });
 
 
-app.get('/analytics',(req,res)=>{
+app.get('/analytics', (req, res) => {
     if (req.isAuthenticated()) {
         if (req.query.error) {
             res.redirect("/html/analytics.html?error=" + req.query.error);
