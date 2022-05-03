@@ -277,6 +277,11 @@ section {
   border-bottom: 1px solid #ddd;
 }
 
+
+.center {
+  text-align: center;
+}
+
 #primary-nav.mobile li:first-child  {
   width: 100%;
   margin: 0;
