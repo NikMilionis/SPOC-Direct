@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register New Account</title>
-    <script src="../js/register.js" defer></script>
+    <title>Log in to SPOC Account</title>
 
+
+    <script src="../js/register.js" defer></script>
 
 
     <!--    Bootstrap-->
@@ -57,16 +58,17 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="#">Events</a></li>
                             <li><a href="/forum">Forum</a></li>
+<li><a href="/archives">Archives</a></li>
 <li><a href="/election">Election</a></li>
 
-                            <li><a href="#">User</a>
+                            <li><a href="#" id="showname"><i class="fa fa-user"></i></a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a href="/login">Log In</a></li>
-                                    <li><a class="active" href="/register">Register</a></li>
+                                    <li><a href="/login" class="login">Log In</a></li>
+                                    <li><a class="active login" href="/register">Register</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
-                                    <li><a href="#">My Account</a></li>
-                                    <li><a href="#">Log out</a></li>
+                                    <li><a href="/account" class="logout">My account</a></li>
+                                    <li><a href="/logout" class="logout">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -78,34 +80,36 @@
 </div>
 
 <div class="mb-3 container">
-    <form class="m-2 d-flex justify-content-center" id="regForm" action='/register' method="POST">
+    <form class="m-2 d-flex justify-content-center" id="regForm" action="/register" method="POST">
         <div class="card col-sm-12 col-lg-6">
             <h3 class="mx-2">Register New Account</h3>
             <div class="col-10 mt-3 mx-2">
                 <label for="username" class="form-label">Username:</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="username">
+                <input type="text" class="form-control" name="username" id="username" placeholder="username">
             </div>
             <div class="col-10  mx-2">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="password">
             </div>
             <div class="col-10  mx-2">
                 <label for="password" class="form-label">Confirm Password:</label>
-                <input type="password" class="form-control" id="confirm" name="confirm" placeholder="password">
+                <input type="password" class="form-control" name="confirm" id="confirm" placeholder="password">
             </div>
             <div class="col-10 mx-2">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="email">
+                <input type="email" class="form-control" name="email" id="email" placeholder="email">
             </div>
             <div class="col-10  mb-4 mx-2">
                 <label for="avatar" class="form-label">User Avatar Image URL:</label>
-                <input type="text" class="form-control" id="avatar" name="avatar" placeholder="URL">
+                <input type="text" class="form-control" name="avatar" id="avatar" placeholder="URL">
+            </div>
+            <div class="mb-3">
+                <p id="error_msg" style="color: red"></p>
             </div>
             <div class="row mx-1">
-                <div style="color:red"><p id="error_msg"></p></div>
                 <div class="d-flex justify-content-between mb-2">
                     <button type="submit" class="btn btn-primary">Register</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="redr()">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger"onclick="redr()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -132,9 +136,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <ul>
-                                <li><a href="/register"><i class="fa fa-angle-right"></i>Register</a></li>
-                                <li><a href="/login"><i class="fa fa-angle-right"></i>Login</a></li>
-                                <li><a href="/profile"><i class="fa fa-angle-right"></i>My Profile</a></li>
+                                <li><a href="/register" class="login"><i class="fa fa-angle-right"></i>Register</a></li>
+                                <li><a href="/login" class="login"><i class="fa fa-angle-right"></i>Login</a></li>
+                                <li><a href="/account"><i class="fa fa-angle-right"></i>My Profile</a></li>
                             </ul>
                         </div>
                         <div class="col-md-6">

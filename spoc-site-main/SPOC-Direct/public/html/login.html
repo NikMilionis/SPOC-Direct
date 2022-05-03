@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Register New Account</title>
+
     <script src="../js/login.js" defer></script>
-
-
 
 
     <!--    Bootstrap-->
@@ -25,8 +24,8 @@
     <script src="https://kit.fontawesome.com/e5b5eed843.js" crossorigin="anonymous"></script>
 
 
-<!--    <link rel="stylesheet" href="../css/hero-slider.css">-->
-<!--    <link rel="stylesheet" href="../css/owl-carousel.css">-->
+    <!--    <link rel="stylesheet" href="../css/hero-slider.css">-->
+    <!--    <link rel="stylesheet" href="../css/owl-carousel.css">-->
 
 
     <!-- Unfortunately needed for the Navbar to work...   -->
@@ -50,24 +49,25 @@
                     <button id="primary-nav-button" type="button">Menu</button>
                     <a href="/">
                         <div class="logo">
-                            <img src="/img/trueIcon.png" alt="SPOC">
+                            <img src="../img/trueIcon.png" alt="SPOC">
                         </div>
                     </a>
                     <nav id="primary-nav" class="dropdown cf">
                         <ul class="dropdown menu">
-                            <li class='active'><a href="/">Home</a></li>
-                            <li><a class="scrollTo" data-scrollTo="blog" href="#">Events</a></li>
-                            <li><a class="logout" href="/forum">Forum</a></li>
-                            <li><a class="logout" href="/archives">Archives</a></li>
-                            <li><a class="logout" href="/election">Election</a></li>
-                            <li><a class="login" href="#">User</a>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="/forum">Forum</a></li>
+                            <li><a href="/archives">Archives</a></li>
+                            <li><a href="/election">Election</a></li>
+
+                            <li><a href="#" id="showname"><i class="fa fa-user"></i></a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a class="login" href="/login">Log In</a></li>
-                                    <li><a class="login" href="/register">Create New Account</a></li>
+                                    <li><a class="active" href="/login" class="login">Log In</a></li>
+                                    <li><a href="/register" class="login">Register</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
-                                    <li><a class="logout" href="/account">My Account</a></li>
-                                    <li><a class="logout" href="/logout">Log out</a></li>
+                                    <li><a href="/account" class="logout">My account</a></li>
+                                    <li><a href="/logout" class="logout">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -78,23 +78,27 @@
     </header>
 </div>
 
-
 <div class="mb-3 container">
-    <form class="m-2 d-flex justify-content-center" action="/login" method="POST">
+    <form class="m-2 d-flex justify-content-center" action="/login" method="post">
         <div class="card col-6">
             <h3 class="mx-2">Log In</h3>
             <div class="col-10 mt-3 mx-2">
                 <label for="username" class="form-label">Username:</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="username">
+                <input type="text" class="form-control" name="username" id="username" placeholder="username">
             </div>
             <div class="col-10 mb-4 mx-2">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="password">
+            </div>
+            <div class="mb-3">
+                <p id="error_msg" style="color: red"></p>
             </div>
             <div class="row mx-1">
                 <div class="d-flex justify-content-between mb-2">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                    <button class="btn btn-outline-primary" onclick="window.location.href='/register'">Register New Account</button>
+                    <button class="btn btn-primary">Log in</button>
+                    <button class="btn btn-outline-primary" onclick="window.location.href='/register'">Register New
+                        Account
+                    </button>
                 </div>
             </div>
         </div>
@@ -122,15 +126,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             <ul>
-                                <li><a href="/register"><i class="fa fa-angle-right"></i>Register</a></li>
-                                <li><a href="/login"><i class="fa fa-angle-right"></i>Login</a></li>
-                                <li><a href="/profile"><i class="fa fa-angle-right"></i>My Profile</a></li>
+                                <li><a href="/register" class="login"><i class="fa fa-angle-right"></i>Register</a></li>
+                                <li><a href="/login" class="login"><i class="fa fa-angle-right"></i>Login</a></li>
+                                <li><a href="/account"><i class="fa fa-angle-right"></i>My Profile</a></li>
                             </ul>
                         </div>
                         <div class="col-md-6">
                             <ul>
                                 <li><a href="/forum"><i class="fa fa-angle-right"></i>Forum</a></li>
                                 <li><a href="#"><i class="fa fa-angle-right"></i>Events</a></li>
+                                <li><a href="/"><i class="fa fa-angle-right"></i>About Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -141,7 +146,8 @@
                     <div class="footer-heading">
                         <h4>Contact Information</h4>
                     </div>
-                    <p>Send us an email or come to our office for more information about anything related to the club and
+                    <p>Send us an email or come to our office for more information about anything related to the club
+                        and
                         this website!</p>
                     <ul>
                         <li><span>Email:</span><a href="#">clarkuspoc@gmail.com</a></li>
@@ -152,7 +158,6 @@
         </div>
     </div>
 </footer>
-
 
 
 </body>

@@ -16,7 +16,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="../css/navCSS.css">
-    <link rel="stylesheet" href="../css/analytics.css">
+    <link rel="stylesheet" href="../css/account">
+
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     <script src="../js/datepicker.js" defer></script>
@@ -32,23 +33,25 @@
                     <button id="primary-nav-button" type="button">Menu</button>
                     <a href="/">
                         <div class="logo">
-                            <img src="/img/trueIcon.png" alt="SPOC">
+                            <img src="../img/trueIcon.png" alt="SPOC">
                         </div>
                     </a>
                     <nav id="primary-nav" class="dropdown cf">
                         <ul class="dropdown menu">
-                            <li class='active'><a href="/">Home</a></li>
-                            <li><a class="scrollTo" data-scrollTo="blog" href="#">Events</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/events">Events</a></li>
                             <li><a href="/forum">Forum</a></li>
+                            <li><a href="/archives">Archives</a></li>
                             <li><a href="/election">Election</a></li>
-                            <li><a href="#" id="showname" href="/account">User</a>
+
+                            <li><a href="#" id="showname"><i class="fa fa-user"></i></a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a class="login" href="/login">Log In</a></li>
-                                    <li><a class="login" href="/register">Create New Account</a></li>
+                                    <li><a href="/login" class="login">Log In</a></li>
+                                    <li><a class="active login" href="/register">Register</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
-                                    <li><a class="login" href="/account">My Account</a></li>
-                                    <li><a class="logout" href="/logout">Log out</a></li>
+                                    <li><a href="/account" class="logout">My account</a></li>
+                                    <li><a href="/logout" class="logout">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -58,7 +61,6 @@
         </div>
     </header>
 </div>
-
 
 <body class="container">
 
@@ -81,10 +83,64 @@
             <h1 id="name"></h1>
             <h3>Favorite Tags: <span id="acc_brand"></span></h3>
             <h3>Favorite Archive Entries:</h3>
-            <ul id="tag_list_personal" class="list-group">
+            <ul id="car_list_personal" class="list-group">
             </ul>
         </div>
     </div>
 </section>
+
+<footer class="footer mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="about-veno">
+                    <div class="logo">
+                        <img src="/img/trueIcon.png" alt="Venue Logo">
+                    </div>
+                    <p>Science-Fiction People of Clark is a student run club at Clark Univeristy which appeals to all
+                        interested</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="useful-links">
+                    <div class="footer-heading">
+                        <h4>Useful Links</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><a href="/register" class="login"><i class="fa fa-angle-right"></i>Register</a></li>
+                                <li><a href="/login" class="login"><i class="fa fa-angle-right"></i>Login</a></li>
+                                <li><a href="/account"><i class="fa fa-angle-right"></i>My Profile</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li><a href="/forum"><i class="fa fa-angle-right"></i>Forum</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Events</a></li>
+                                <li><a href="/"><i class="fa fa-angle-right"></i>About Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="contact-info">
+                    <div class="footer-heading">
+                        <h4>Contact Information</h4>
+                    </div>
+                    <p>Send us an email or come to our office for more information about anything related to the club
+                        and
+                        this website!</p>
+                    <ul>
+                        <li><span>Email:</span><a href="#">clarkuspoc@gmail.com</a></li>
+                        <li><span>Address:</span><a href="#">950 Main St. Worcester, MA</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>
