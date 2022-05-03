@@ -71,7 +71,7 @@ section {
 
 /* Header Style */
 
-.cf:before, 
+.cf:before,
 .cf:after {
   content: '';
   display: table;
@@ -196,11 +196,11 @@ section {
 }
 
 .downarrow {
-    background: none;
-    display: inline-block;
+  background: none;
+  display: inline-block;
   padding: 0;
-    text-align: center;
-    min-width: 3px;
+  text-align: center;
+  min-width: 3px;
 }
 
 .sub-menu .downarrow {
@@ -275,6 +275,11 @@ section {
   width: 100%;
   margin: 0;
   border-bottom: 1px solid #ddd;
+}
+
+
+.center {
+  text-align: center;
 }
 
 #primary-nav.mobile li:first-child  {
@@ -692,7 +697,7 @@ section.our-services .service-item h4 {
   border: 1px solid #ddd;
 }
 .accordion li:last-child a {
-  
+
 }
 .accordion li p {
   display: none;
@@ -1019,7 +1024,7 @@ section.contact .section-heading {
   width: 60%;
   margin: 0 auto;
   background-color: #fff;
-  //background-color: #fff;
+//background-color: #fff;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }
 .modal-animated-in {
@@ -1058,7 +1063,7 @@ section.contact .section-heading {
   100% {
     top: 0;
     opacity: 1;
-  }  
+  }
 }
 
 @keyframes totop-out {
@@ -1069,7 +1074,7 @@ section.contact .section-heading {
   100% {
     top: -100%;
     opacity: 0;
-  }  
+  }
 }
 
 
@@ -1241,5 +1246,5 @@ footer .contact-info ul li a {
   footer .contact-info {
     margin-top: 60px;
   }
-  
+
 }
