@@ -5,14 +5,13 @@ const post_id = urlParams.get('post_id');
 function get_post_block(post, idx) {
     return `<div class="post_block ${idx % 2 === 0 ? 'even_row' : 'odd_row'}">
                 <div class="row">
-                    <div class="col-2">${post.username}</div>
-                    <div class="col-1">${post.title}</div>
-                    <div class="col-2">${post.url}</div>
-                    <div class="col-2">${post.detail}</div>
-                    <div class="col-1">${post.tags}</div>
-                    <div class="col-2">${post.replys}</div>
-                    <div class="col-1">${post.timepost}</div>
-                    <div class="col-1 d-flex justify-content-end" data-username="${post.username}" data-title="${post.title}" data-url="${post.url}" data-detail="${post.detail}" data-tags="${post.tags}" data-replys="${post.replys}"data-timepost="${post.timepost}">
+                    <div class="col-md-4 col-lg-2">${post.username}</div>
+                    <div class="col-md-4 col-lg-1">${post.title}</div>
+                    <div class="col-md-4 col-lg-3">${post.postdetail}</div>
+                    <div class="col-md-2 col-lg-1">${post.tags}</div>
+                    <div class="col-md-3 col-lg-2">${post.replys.length}</div>
+                    <div class="col-md-4 col-lg-1">${post.timepost[0].date} ${post.timepost[0].time}</div>
+                    <div class="col-md-3 col-lg-1 d-flex justify-content-end" data-username="${post.username}" data-title="${post.title}" data-url="${post.url}" data-detail="${post.detail}" data-tags="${post.tags}" data-replys="${post.replys}"data-timepost="${post.timepost}">
                         <button class="btn like btn-outline-primary" value="0">
                         Like</button>
                     </div>

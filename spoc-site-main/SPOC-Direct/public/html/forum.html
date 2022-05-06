@@ -84,7 +84,23 @@
 
     <h1>SPOC - User Forum</h1>
     <!--needs to be changed for authentication-->
-    <button class="btn btn-info" onclick="window.location.href='/forum_edit'">New Forum Post</button>
+
+
+    <section id="control_buttons">
+        <div>
+            <div class="input-group mb-3">
+                <input id="search_box" type="search" class="form-control" placeholder="Search for Post title or Tag..."
+                       aria-label="Search"
+                       aria-describedby="basic-addon2" onsearch="searchPosts()">
+                <span class="input-group-text" id="basic-addon2" onclick="searchPosts()"><i
+                        class="fas fa-search"></i></span>
+            </div>
+        </div>
+        <div class="input-group mb-3 d-flex justify-content-end">
+            <button class="btn btn-info logout" onclick="window.location.href='/forum_edit'">Create a New Post</button>
+        </div>
+    </section>
+
 
     <div class="col-lg-12">
         <ul id="post_list" class="list-group">

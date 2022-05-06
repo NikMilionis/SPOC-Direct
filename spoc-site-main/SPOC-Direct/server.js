@@ -80,9 +80,6 @@ const forumPostSchema = {
 }
 
 
-
-
-
 const presSchema = new mongoose.Schema({
     Candidate: {
         type: String
@@ -123,8 +120,6 @@ const voterSchema = new mongoose.Schema({
 })
 
 
-
-
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -138,13 +133,13 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        require:true
+        require: true
     },
     profile: {
         type: String,
         require: true
     },
-    posts:[
+    posts: [
         forumPostSchema
     ]
 })
@@ -212,6 +207,8 @@ app.get('/get_post_by_id',
 
 app.get("/get_all_posts", function (req, res) {
     Post.find(function (err, data) {
+
+
         if (err) {
             res.send({
                 "message": "internal database error",
@@ -302,9 +299,40 @@ app.get('/forum_edit', (req, res) => {
 })
 ;
 
+app.get("/get_posts_by_filters", (req, res) => {
+
+    console.log(req.query.search_key)
+
+
+    const sk = req.query.search_key;
+
+    Post.find(
+        {
+            $or: [
+                {title: {$regex: sk}},
+                {tags: {$regex: sk}}
+            ]
+        },
+        (err, data) => {
+            if (err) {
+                res.send({
+                    "message": "error",
+                    "data": []
+                })
+            } else {
+                //console.log(data)
+                res.send({
+                    "message": "success",
+                    "data": data
+                })
+            }
+        }
+    )
+})
+
 app.post("/forum_edit", (req, res) => {
 
-    const tagArr = req.body.tags.split(' ,')
+    const tagArr = req.body.tags.split(', ')
 
     const timeTime = new Date().toLocaleTimeString();
     const dateDate = new Date().toLocaleDateString()
@@ -339,7 +367,6 @@ app.post("/forum_edit", (req, res) => {
                 }
             }
         )
-
 
 
         Post.updateOne(
@@ -408,7 +435,6 @@ app.post('/delete_post_by_id', (req, res) => {
         }
     )
 });
-
 
 
 app.get('/get_user_by_id',
@@ -605,11 +631,11 @@ app.get('/election', (req, res) => {
 
 app.get('/election_vote', (req, res) => {
 
-        if (req.query.error) {
-            res.redirect("/html/election_vote.html?error=" + req.query.error);
-        } else {
-            res.redirect("/html/election_vote.html");
-        }
+    if (req.query.error) {
+        res.redirect("/html/election_vote.html?error=" + req.query.error);
+    } else {
+        res.redirect("/html/election_vote.html");
+    }
 })
 
 console.log(Voted)
@@ -632,8 +658,8 @@ app.post('/election_vote', async (req, res) => {
     let secrId = null;
     let tresId = null;
 
-    if(req.isAuthenticated()){
-    console.log(req.user.username)
+    if (req.isAuthenticated()) {
+        console.log(req.user.username)
 
         console.log("new user added")
         const username = {
@@ -645,7 +671,7 @@ app.post('/election_vote', async (req, res) => {
                 console.log(err["message"]);
                 //res.send("Database Error!")
 
-                  } else {
+            } else {
                 console.log(added._id + "This is new")
             }
         })
@@ -656,9 +682,9 @@ app.post('/election_vote', async (req, res) => {
         if (error) {
             console.log(error)
         } else {
-           //console.log(data[0]._id)
+            //console.log(data[0]._id)
             presVote = data[0].Votes;
-            presId=data[0]._id
+            presId = data[0]._id
             presVote++;
 
         }
@@ -668,9 +694,9 @@ app.post('/election_vote', async (req, res) => {
         if (error) {
             console.log(error)
         } else {
-           //console.log(data[0].Votes)
+            //console.log(data[0].Votes)
             viceVote = data[0].Votes;
-            viceId=data[0]._id
+            viceId = data[0]._id
             viceVote++;
 
         }
@@ -678,11 +704,11 @@ app.post('/election_vote', async (req, res) => {
 
     await Secr.find({Candidate: votes.secr}, (error, data) => {
         if (error) {
-           //console.log(error)
+            //console.log(error)
         } else {
-           //console.log(data[0].Votes)
+            //console.log(data[0].Votes)
             secrVote = data[0].Votes
-            secrId=data[0]._id
+            secrId = data[0]._id
             secrVote++;
 
         }
@@ -690,26 +716,25 @@ app.post('/election_vote', async (req, res) => {
 
     await Tres.find({Candidate: votes.tres}, (error, data) => {
         if (error) {
-           //console.log(error)
+            //console.log(error)
         } else {
-           //console.log(data[0].Votes)
+            //console.log(data[0].Votes)
             tresVote = data[0].Votes;
-            tresId=data[0]._id
+            tresId = data[0]._id
             tresVote++;
 
 
         }
     }).clone()
-   //
-   //
-   // console.log(presVote + " heck")
-   // console.log(viceVote + " darn")
-   // console.log(secrVote + " frick")
-   // console.log(tresVote + " poop")
+    //
+    //
+    // console.log(presVote + " heck")
+    // console.log(viceVote + " darn")
+    // console.log(secrVote + " frick")
+    // console.log(tresVote + " poop")
 
 
-
-    if(presId){
+    if (presId) {
         Pres.updateOne(
             {_id: presId},
             {
@@ -732,7 +757,7 @@ app.post('/election_vote', async (req, res) => {
             }
         )
     }
-    if(viceId){
+    if (viceId) {
         Vp.updateOne(
             {_id: viceId},
             {
@@ -755,7 +780,7 @@ app.post('/election_vote', async (req, res) => {
             }
         )
     }
-    if(secrId){
+    if (secrId) {
         Pres.updateOne(
             {_id: secrId},
             {
@@ -778,7 +803,7 @@ app.post('/election_vote', async (req, res) => {
             }
         )
     }
-    if(tresId){
+    if (tresId) {
         Pres.updateOne(
             {_id: tresId},
             {

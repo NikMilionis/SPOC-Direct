@@ -19,6 +19,7 @@ function get_post_object(post, idx) {
 }
 
 function showList(posts) {
+
     $('#post_list').empty();
     posts.forEach((post, idx) => {
         $('#post_list').append(get_post_object(post, idx));
@@ -47,11 +48,37 @@ function showList(posts) {
 
 $.getJSON("/get_all_posts")
     .done(function (data) {
+        let sort = []
         if (data.message === "success") {
+            sort = data.data
             //console.log(data.data)
-            showList(data.data);
+            sort.sort(function (a, b) {
+                const comp1 = a.timepost[0].date;
+                const comp2 = b.timepost[0].date;
+
+
+                return (comp1 > comp2) ? -1 : (comp1 < comp2) ? 1 : 0;
+            })
+
+            showList(sort);
         }
     });
+
+
+function searchPosts(){
+
+    console.log("searching")
+
+    $.getJSON("/get_posts_by_filters",{
+        search_key:$("#search_box").val(),
+
+
+    }).done((data)=>{
+        showList(data.data)
+        //this is so i can sort it after its searched
+        //sortedList = data.data
+    })
+}
 
 
 $(document).ready(() => {
