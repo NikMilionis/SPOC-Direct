@@ -24,6 +24,65 @@ mongoose.connect('mongodb://127.0.0.1:27017/spocDB',
         console.log("db connection successful");
     });
 
+
+const timeSchema = {
+    time: {
+        type: String
+    },
+    date: {
+        type: String
+    }
+}
+
+const replySchema = {
+
+    username: {
+        type: String
+    },
+    replyText: {
+        type: String
+    },
+    timereply: [
+        timeSchema
+    ]
+
+
+}
+
+const forumPostSchema = {
+    title: {
+        type: String,
+        require: [true, "Title cannot be empty!"]
+    },
+    url: {
+        type: String,
+        require: [false]
+    },
+    postdetail: {
+        type: String,
+        require: [true, "Description cannot be empty!"],
+        max: 500
+    },
+    tags: [{
+        type: String,
+        require: [true, "Tags cannot be empty!"]
+    }],
+    username: {
+        type: String
+    },
+    replys: [
+        replySchema
+    ],
+    timepost: [
+        timeSchema
+    ]
+
+}
+
+
+
+
+
 const presSchema = new mongoose.Schema({
     Candidate: {
         type: String
@@ -69,20 +128,31 @@ const voterSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
+        unique: true,
+        require: true,
         minlength: 3
     },
     password: {
-        type: String,
+        require: true,
+        type: String
     },
     email: {
         type: String,
+        require:true
     },
     profile: {
         type: String,
-    }
+        require: true
+    },
+    posts:[
+        forumPostSchema
+    ]
 })
 
 userSchema.plugin(passportLocalMongoose)
+
+const Post = mongoose.model('Post', forumPostSchema)
+const Voted = mongoose.model('Voted', voterSchema)
 
 const User = mongoose.model('User', userSchema);
 
@@ -103,62 +173,6 @@ const year = date.getFullYear();
 
 // console.log(year)
 
-const timeSchema = {
-    time: {
-        type: String
-    },
-    date: {
-        type: String
-    }
-}
-
-const replySchema = {
-
-    username: {
-        type: String
-    },
-    replyText: {
-        type: String
-    },
-    timereply: [
-        timeSchema
-    ]
-
-
-}
-
-const forumPostSchema = {
-    title: {
-        type: String,
-        require: [true, "Title cannot be empty!"]
-    },
-    url: {
-        type: String,
-        require: [false]
-    },
-    postdetail: {
-        type: String,
-        require: [true, "Description cannot be empty!"]
-    },
-    tags: [{
-        type: String,
-        require: [true, "Tags cannot be empty!"]
-    }],
-    username: {
-        type: String
-    },
-    replys: [
-        replySchema
-    ],
-    timepost: [
-        timeSchema
-    ]
-
-}
-
-
-const Post = mongoose.model('Post', forumPostSchema)
-const Voted = mongoose.model('Voted', voterSchema)
 
 app.listen(3000, function () {
     console.log("server started at 3000");
@@ -312,7 +326,22 @@ app.post("/forum_edit", (req, res) => {
     console.log(req.body.tags)
 
     if (req.body._id) {
-        //update car
+
+        User.updateOne(
+            {_id: req.user._id},
+            {$push: {posts: post}},
+            {runValidators: true},
+            (err, info) => {
+                if (err) {
+                    console.log(info)
+                } else {
+                    console.log("success user update")
+                }
+            }
+        )
+
+
+
         Post.updateOne(
             {_id: req.body._id},
             {$set: post},
@@ -328,9 +357,24 @@ app.post("/forum_edit", (req, res) => {
                 }
             }
         )
+
     } else {
 
         const np = new Post(post);
+
+        User.updateOne(
+            {_id: req.user._id},
+            {$push: {posts: post}},
+            {runValidators: true},
+            (err, info) => {
+                if (err) {
+                    //console.log(info)
+                } else {
+                    console.log("success user update")
+                }
+            }
+        )
+
         np.save((err, new_post) => {
             if (err) {
                 console.log(err["message"]);
@@ -366,13 +410,6 @@ app.post('/delete_post_by_id', (req, res) => {
 });
 
 
-app.get('/register', (req, res) => {
-    if (req.query.error) {
-        res.redirect("/html/register.html?error=" + req.query.error);
-    } else {
-        res.redirect("/html/register.html");
-    }
-});
 
 app.get('/get_user_by_id',
     function (req, res) {
@@ -467,8 +504,7 @@ app.post('/login', (req, res) => {
 app.post('/register', (req, res) => {
     const newUser = {
         username: req.body.username,
-        password: req.body.password,
-        fullname: req.body.email,
+        email: req.body.email,
         profile: req.body.avatar
     }
 
