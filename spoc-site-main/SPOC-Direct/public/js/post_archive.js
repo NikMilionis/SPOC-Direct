@@ -21,20 +21,21 @@ function get_post_block(post, idx) {
 }
 
 function showList(posts) {
-    let favlist=[];
+    let favList = [];
     $('#fav_list').empty();
 
-    posts.forEach((post,idx)=>{
-        $('#fav_list')
-            .append(get_post_block(post,idx))
+    posts.forEach((post, idx) => {
+        $('#post_list')
+            .append(get_post_block(post, idx))
     })
-    favList.sort(function(a, b) {
+    favList.sort(function (a, b) {
         return (b.likes < a.likes) ? 1 : -1;
     });
 }
-$(document).ready(()=>{
-    $.getJSON('/get_current_user').done((data)=>{
-        if(data.message==="success"){
+
+$(document).ready(() => {
+    $.getJSON('/get_current_user').done((data) => {
+        if (data.message === "success") {
             const user = data.data;
             $('.login').remove();
             $('#showname').text(user.fullname);
@@ -50,22 +51,30 @@ $(document).ready(()=>{
                 const post_username = $(this).parents('div').attr('data-username');
                 const post_title = $(this).parents('div').attr('data-title');
                 const post_url = $(this).parents('div').attr('data-url');
-                const post_detail =$(this).parents('div').attr('data-detail');
+                const post_detail = $(this).parents('div').attr('data-detail');
                 const post_tags = $(this).parents('div').attr('data-tags');
                 const post_replys = $(this).parents('div').attr('data-replys');
                 const post_timepost = $(this).parents('div').attr('data-timepost');
-                $.post('/update_likes', {username:post_username, title:post_make,url:post_model,detail:post_color,tags:post_price,replys:post_year,timepost:post_year}).done(
-                    (data)=>{
-                        if(data.message==="success"){
+                $.post('/update_likes', {
+                    username: post_username,
+                    title: post_make,
+                    url: post_model,
+                    detail: post_color,
+                    tags: post_price,
+                    replys: post_year,
+                    timepost: post_year
+                }).done(
+                    (data) => {
+                        if (data.message === "success") {
                             console.log("winrar!");
-                        }else{
+                        } else {
                             //handling database error
                             console.log("bot");
                         }
                     }
                 )
             });
-        }else{
+        } else {
             $('.logout').remove();
             $('.like').on('click', function () {
                 location.href = "/login";

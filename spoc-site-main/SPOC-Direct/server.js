@@ -770,7 +770,7 @@ app.post('/election_vote', async (req, res) => {
 
 })
 
-app.get('/archive', (req, res) => {
+app.get('/archives', (req, res) => {
     if (req.query.error) {
         res.redirect("/html/post_archive.html?error=" + req.query.error);
     } else {
