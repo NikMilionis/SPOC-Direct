@@ -46,16 +46,16 @@ $.getJSON("/get_pres")
 
             })
 
-            chart1 = new CanvasJS.Chart("chartContainer1", {
-                title: {
-                    text: "President:"
-                },
-                data: [{
-                    type: "bar",
-                    dataPoints: PresDps
-                }]
-            });
-            chart1.render();
+            // chart1 = new CanvasJS.Chart("chartContainer1", {
+            //     title: {
+            //         text: "President:"
+            //     },
+            //     data: [{
+            //         type: "bar",
+            //         dataPoints: PresDps
+            //     }]
+            // });
+            // chart1.render();
 
         }
     });
@@ -78,16 +78,16 @@ $.getJSON("/get_vp")
 
             })
 
-            chart2 = new CanvasJS.Chart("chartContainer2", {
-                title: {
-                    text: "Vice President:"
-                },
-                data: [{
-                    type: "bar",
-                    dataPoints: ViceDps
-                }]
-            });
-            chart2.render();
+            // chart2 = new CanvasJS.Chart("chartContainer2", {
+            //     title: {
+            //         text: "Vice President:"
+            //     },
+            //     data: [{
+            //         type: "bar",
+            //         dataPoints: ViceDps
+            //     }]
+            // });
+            // chart2.render();
         }
     });
 
@@ -110,17 +110,17 @@ $.getJSON("/get_secr")
 
             })
 
-            console.log(SecrDps)
-            chart3 = new CanvasJS.Chart("chartContainer3", {
-                title: {
-                    text: "Secretary:"
-                },
-                data: [{
-                    type: "bar",
-                    dataPoints: SecrDps
-                }]
-            });
-            chart3.render();
+            // console.log(SecrDps)
+            // chart3 = new CanvasJS.Chart("chartContainer3", {
+            //     title: {
+            //         text: "Secretary:"
+            //     },
+            //     data: [{
+            //         type: "bar",
+            //         dataPoints: SecrDps
+            //     }]
+            // });
+            // chart3.render();
         }
     });
 
@@ -141,16 +141,16 @@ $.getJSON("/get_tres")
                 counttres++;
 
             })
-            chart4 = new CanvasJS.Chart("chartContainer4", {
-                title: {
-                    text: "Treasurer:"
-                },
-                data: [{
-                    type: "bar",
-                    dataPoints: TresDps
-                }]
-            });
-            chart4.render();
+            // chart4 = new CanvasJS.Chart("chartContainer4", {
+            //     title: {
+            //         text: "Treasurer:"
+            //     },
+            //     data: [{
+            //         type: "bar",
+            //         dataPoints: TresDps
+            //     }]
+            // });
+            // chart4.render();
         }
     });
 

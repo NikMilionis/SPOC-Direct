@@ -7,6 +7,8 @@ const results2 = [];
 const results3 = [];
 const results4 = [];
 
+const postresult = [];
+let postlist =[];
 
 let presList = [];
 let vpList = [];
@@ -52,6 +54,64 @@ const tresSchema = {
     Candidate: String
 }
 
+
+const timeSchema = {
+    time: {
+        type: String
+    },
+    date: {
+        type: String
+    }
+}
+
+const replySchema = {
+
+    username: {
+        type: String
+    },
+    replyText: {
+        type: String
+    },
+    timereply: [
+        timeSchema
+    ]
+
+
+}
+
+const forumPostSchema = {
+    title: {
+        type: String,
+        require: [true, "Title cannot be empty!"]
+    },
+    url: {
+        type: String,
+        require: [false]
+    },
+    postdetail: {
+        type: String,
+        require: [true, "Description cannot be empty!"],
+        max: 500
+    },
+    tags: [{
+        type: String,
+        require: [true, "Tags cannot be empty!"]
+    }],
+    username: {
+        type: String
+    },
+    replys: [
+        replySchema
+    ],
+    timepost: [
+        timeSchema
+    ]
+
+}
+
+const Post = mongoose.model('Post', forumPostSchema)
+
+
 const Pres = mongoose.model('Pres', presSchema);
 const Vp = mongoose.model('Vp', vpSchema);
 const Secr = mongoose.model('Secr', secrSchema);
@@ -59,7 +119,7 @@ const Tres = mongoose.model('Tres', tresSchema);
 
 
 
-fs.createReadStream(__dirname + "/public/js/out2.csv")
+fs.createReadStream(__dirname + "/public/js/data/pres.csv")
     .pipe(csvParse({}))
     .on('data', (data) => results1.push(data)).on('end', () => {
     results1.forEach(function (info) {
@@ -81,7 +141,7 @@ fs.createReadStream(__dirname + "/public/js/out2.csv")
 })
 
 
-fs.createReadStream(__dirname + "/public/js/vpElect.csv")
+fs.createReadStream(__dirname + "/public/js/data/vpElect.csv")
     .pipe(csvParse({}))
     .on('data', (data) => results2.push(data)).on('end', () => {
     //console.log(results)
@@ -102,7 +162,7 @@ fs.createReadStream(__dirname + "/public/js/vpElect.csv")
     });
 
 })
-fs.createReadStream(__dirname + "/public/js/secrElect.csv")
+fs.createReadStream(__dirname + "/public/js/data/secrElect.csv")
     .pipe(csvParse({}))
     .on('data', (data) => results3.push(data)).on('end', () => {
 
@@ -123,7 +183,7 @@ fs.createReadStream(__dirname + "/public/js/secrElect.csv")
     });
 
 })
-fs.createReadStream(__dirname + "/public/js/tresElect.csv")
+fs.createReadStream(__dirname + "/public/js/data/tresElect.csv")
     .pipe(csvParse({}))
     .on('data', (data) => results4.push(data)).on('end', () => {
     //console.log(results)
@@ -145,6 +205,32 @@ fs.createReadStream(__dirname + "/public/js/tresElect.csv")
     });
 
 })
+const rawdata = fs.readFileSync(__dirname+ "/public/js/data/posts.json")
+jsonList = JSON.parse(rawdata);
+
+
+    jsonList.forEach(function (info) {
+        postlist.push({
+            "title": info["title"],
+            "url":info["url"],
+            "postdetail":info["postdetail"],
+            "username":info["username"],
+            "tags": info["tags"],
+            "timepost": info["timepost"],
+            "replys": info["replys"]
+
+
+        })
+    })
+    Post.insertMany(postlist, {}, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("all data saved");
+            //mongoose.connection.close();
+        }
+    });
+
 
 //const rawdata = fs.readFileSync(__dirname + "/data100.csv");
 //const dataString = rawdata.toString()

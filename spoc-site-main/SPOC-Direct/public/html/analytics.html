@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <script src="../js/data.js" defer></script>
-    <script src="../js/favorites.js" defer></script>
+    <script src="../js/analytics.js" defer></script>
     <meta charset="UTF-8">
     <title>SPOC - Analytics</title>
 
@@ -15,6 +15,10 @@
 
     <!--    jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--    CanvasJS for Graphs-->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 
     <link rel="stylesheet" href="../css/navCSS.css">
     <link rel="stylesheet" href="../css/analytics.css">
@@ -84,24 +88,39 @@
             <img class="resize" src="../js/bar.png" alt="Image sample">
         </div>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <h3>Election Results</h3>
-            <img class="resize" src="../js/pie.png" alt="Image sample">
-        </div>
-        <div class="col-6">
-            <h3>Top Posts</h3>
-            <div class="row" id="headers">
-                <div class="col-2"><a>Username</a></div>
-                <div class="col-1"><a>Title</a></div>
-                <div class="col-2"><a>Url</a></div>
-                <div class="col-2"><a>Detail</a></div>
-                <div class="col-1"><a>Tags</a></div>
-                <div class="col-2"><a>Replies</a></div>
-                <div class="col-1"><a>Timestamp</a></div>
+    <div class="row my-2">
+        <div class="col-sm-12 col-md-12 mx-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Live Election Results:</h4>
+                    <div class="row mx-3">
+                        <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer1" style="height: 300px;"></div>
+                        <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer2" style="height: 300px;"></div>
+                        <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer3" style="height: 300px;"></div>
+                        <div class="col-sm-12 col-md-6 col-lg-3" id="chartContainer4" style="height: 300px;"></div>
+                    </div>
+                </div>
             </div>
-            <div id="fav_list">
+        </div>
 
+        <div class="row my-2">
+            <div class="col-sm-12 col-md-12 mx-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Top Posts</h3>
+                        <div class="row" id="headers">
+                            <div class="col-2"><a>Username</a></div>
+                            <div class="col-1"><a>Title</a></div>
+                            <div class="col-3"><a>Detail</a></div>
+                            <div class="col-1"><a>Tags</a></div>
+                            <div class="col-2"><a>Replies</a></div>
+                            <div class="col-1"><a>Timestamp</a></div>
+                        </div>
+                        <div id="fav_list">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
