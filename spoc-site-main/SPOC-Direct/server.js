@@ -19,6 +19,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 mongoose.connect('mongodb://127.0.0.1:27017/spocDB',
     {useNewUrlParser: true}, function () {
         console.log("db connection successful");
@@ -221,6 +223,28 @@ app.get("/get_all_posts", function (req, res) {
             })
         }
     });
+});
+app.get("/get_users", function (req, res) {
+    User.find(function (err, data) {
+        if (err) {
+            res.send({
+                "message": "internal database error",
+                "data": []
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
+
+app.get("/get_logincount", function (req, res) {
+
+    res.send({
+        "message": logincount,
+        "data": logincount});
 });
 
 app.get("/get_pres", function (req, res) {
@@ -507,12 +531,13 @@ app.get('/logout', (req, res) => {
         res.redirect('/')
     }
 });
-
+let logincount = 0;
 app.post('/login', (req, res) => {
     const user = new User({
         username: req.body.username,
         password: req.body.password
     });
+    logincount++
     req.login(user, (err) => {
         if (err) {
             res.redirect("/html/login.html?error=Database error");

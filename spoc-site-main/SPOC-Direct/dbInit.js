@@ -227,7 +227,7 @@ jsonList = JSON.parse(rawdata);
             console.log(err);
         } else {
             console.log("all data saved");
-            //mongoose.connection.close();
+            mongoose.connection.close();
         }
     });
 

@@ -19,49 +19,81 @@ function get_post_block(post, idx) {
             </div>`
 }
 
+function get_userList(user, idx) {
+    return `<div class="post_block ${idx % 2 === 0 ? 'even_rowUsers' : 'odd_rowUsers'}">
+                <div class="row">
+                    
+                    <div class="col-lg-3"><img src="${user.profile}" onerror="this.src='../img/default.png'" style="max-height: 75px"></div>
+                    <div class="col-lg-3">${user.username}</div>
+                    <div class="col-lg-3">${user.email}</div>
+                    <div class="col-lg-3">${user.posts.length}</div>
+                </div>
+            </div>`
+}
+
 function showList(posts) {
     $('#fav_list').empty();
 
-    posts.forEach((post,idx)=>{
+    posts.forEach((post, idx) => {
         $('#fav_list')
-            .append(get_post_block(post,idx))
+            .append(get_post_block(post, idx))
     })
 
 }
-$(document).ready(()=>{
-    $.getJSON('/get_current_user').done((data)=>{
-        if(data.message==="success"){
+
+function showListusers(users) {
+    $('#user_list').empty();
+
+    users.forEach((user, idx) => {
+        $('#user_list')
+            .append(get_userList(user, idx))
+    })
+
+}
+
+
+$(document).ready(() => {
+    $.getJSON('/get_current_user').done((data) => {
+        if (data.message === "success") {
             const user = data.data;
             $('.login').remove();
             $('#showname').text(user.fullname);
             $.getJSON('/get_all_posts').done(function (data) {
-                console.log("sent")
+                //console.log("sent")
                 if (data.message === "success") {
                     /*        filterList(data.data);*/
                     showList(data.data);
-                    console.log(data)
+                    //console.log(data)
                 }
             })
             $('.like').on('click', function () {
                 const post_username = $(this).parents('div').attr('data-username');
                 const post_title = $(this).parents('div').attr('data-title');
                 const post_url = $(this).parents('div').attr('data-url');
-                const post_detail =$(this).parents('div').attr('data-detail');
+                const post_detail = $(this).parents('div').attr('data-detail');
                 const post_tags = $(this).parents('div').attr('data-tags');
                 const post_replys = $(this).parents('div').attr('data-replys');
                 const post_timepost = $(this).parents('div').attr('data-timepost');
-                $.post('/update_likes', {username:post_username, title:post_make,url:post_model,detail:post_color,tags:post_price,replys:post_year,timepost:post_year}).done(
-                    (data)=>{
-                        if(data.message==="success"){
-                            console.log("winrar!");
-                        }else{
+                $.post('/update_likes', {
+                    username: post_username,
+                    title: post_make,
+                    url: post_model,
+                    detail: post_color,
+                    tags: post_price,
+                    replys: post_year,
+                    timepost: post_year
+                }).done(
+                    (data) => {
+                        if (data.message === "success") {
+                            //console.log("winrar!");
+                        } else {
                             //handling database error
-                            console.log("bot");
+                            //console.log("bot");
                         }
                     }
                 )
             });
-        }else{
+        } else {
             $('.logout').remove();
             $('.like').on('click', function () {
                 location.href = "/login";
@@ -69,6 +101,19 @@ $(document).ready(()=>{
         }
     })
 })
+
+
+$.getJSON('/get_users').done((data) => {
+        if (data.message === "success") {
+            ////console.log(data.data)
+            console.log(data)
+
+            showListusers(data.data)
+
+
+        }
+    }
+)
 
 
 let PresDps = [];
@@ -92,13 +137,13 @@ $.getJSON("/get_pres")
         if (data.message === "success") {
             ////console.log(data.data)
             data.data.forEach(function (data, idx) {
-                console.log(data.Votes)
+                //console.log(data.Votes)
 
                 PresDps.push({
                     label: data.Candidate,
                     y: data.Votes
                 })
-                console.log(PresDps)
+                //console.log(PresDps)
 
                 $("#presnum").text(countpres + " Candidates")
 
@@ -171,7 +216,7 @@ $.getJSON("/get_secr")
 
             })
 
-            console.log(SecrDps)
+            //console.log(SecrDps)
             chart3 = new CanvasJS.Chart("chartContainer3", {
                 title: {
                     text: "Secretary:"

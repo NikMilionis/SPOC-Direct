@@ -40,7 +40,7 @@ section {
     margin-top: 14px;
     font-size: 23px;
     font-weight: 600;
-    color: #232323;
+    color: #000000;
     letter-spacing: 0.5px;
 }
 
@@ -347,6 +347,16 @@ section {
     overflow: auto;
 }
 
+.odd_rowUsers {
+    background-color: #fff0bc;
+    overflow: auto;
+}
+
+.even_rowUsers {
+    background-color: #fffdf3;
+    overflow: auto;
+}
+
 .check_box{
     width: 30px;
     height: 30px;
@@ -354,7 +364,7 @@ section {
 
 
 .highlight_forum{
-    color: #007bff;
+    color: #0066ff;
     /*background-color: #2e6e9e;*/
 }
 
