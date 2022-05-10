@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forum</title>
+    <title>Event Detail</title>
 
-    <script src="../js/forum.js" defer></script>
+
+    <link rel="stylesheet" href="../css/event_detail.css">
 
 
     <!--    Bootstrap-->
@@ -24,8 +25,8 @@
     <script src="https://kit.fontawesome.com/e5b5eed843.js" crossorigin="anonymous"></script>
 
 
-    <!--        <link rel="stylesheet" href="../css/hero-slider.css">-->
-    <!--        <link rel="stylesheet" href="../css/owl-carousel.css">-->
+<!--        <link rel="stylesheet" href="../css/hero-slider.css">-->
+<!--        <link rel="stylesheet" href="../css/owl-carousel.css">-->
 
 
     <!-- Unfortunately needed for the Navbar to work...   -->
@@ -39,8 +40,15 @@
     <script src="../js/main.js" defer></script>
 
 
+
+
+
+
+
+
 </head>
 <body>
+
 <div class="wrap" id="navtop">
     <header id="header">
         <div class="container">
@@ -57,13 +65,13 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="/events">Events</a></li>
                             <li><a href="/forum">Forum</a></li>
-                            <li><a href="/archives">Archives</a></li>
-                            <li><a href="/election">Election</a></li>
+<li><a href="/archives">Archives</a></li>
+<li><a href="/election">Election</a></li>
 
                             <li><a href="#" id="showname"><i class="fa fa-user"></i></a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a class="active login" href="/login" class="login">Log In</a></li>
+                                    <li><a href="/login" class="login">Log In</a></li>
                                     <li><a href="/register" class="login">Register</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
                                     <li><a href="/account" class="logout">My Account</a></li>
@@ -78,34 +86,36 @@
     </header>
 </div>
 
+<section id="event_detail" class="mx-5">
+    <h1>Hidden Role Games</h1>
+    <div class="row">
+        <div class="card col-sm-12 col-lg-8">
+            <div class="card-body">
+                <div class="row justify-content-between">
+                    <div class="col-5">
+                        <h4>Tuesday May 3rd 7:00pm-9:15pm</h4>
+                    </div>
+                    <div class="col-5">
+                        <h4>Asher Suite</h4>
+                    </div>
+                </div>
+                <hr>
+                <div class="mr-5">
+                    <p>
+                the event concerning hidden roles will occur this friday the 28th. all attendees must meet in the Asher Suite on the third floor of UC.
 
-<section class="container">
-    <div class="row d-flex justify-content-center"></div>
+                    </p>
 
-    <h1>SPOC - User Forum</h1>
-    <!--needs to be changed for authentication-->
+                </div>
+                <button class="btn btn-primary" type="button" onclick="window.location.href='/html/account.html'">RSVP</button>
 
-
-    <section id="control_buttons">
-        <div>
-            <div class="input-group mb-3">
-                <input id="search_box" type="search" class="form-control" placeholder="Search for Post title or Tag..."
-                       aria-label="Search"
-                       aria-describedby="basic-addon2" onsearch="searchPosts()">
-                <span class="input-group-text" id="basic-addon2" onclick="searchPosts()"><i
-                        class="fas fa-search"></i></span>
             </div>
         </div>
-        <div class="input-group mb-3 d-flex justify-content-end">
-            <button class="btn btn-info logout" onclick="window.location.href='/forum_edit'">Create a New Post</button>
+        <div class="card col-sm-12 col-lg-4">
+            <img src="../img/event3.png" id="event_img">
+
         </div>
-    </section>
 
-
-    <div class="col-lg-12">
-        <ul id="post_list" class="list-group">
-
-        </ul>
     </div>
 </section>
 

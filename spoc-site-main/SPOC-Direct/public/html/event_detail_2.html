@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forum</title>
+    <title>Event Detail</title>
 
-    <script src="../js/forum.js" defer></script>
+
+    <link rel="stylesheet" href="../css/event_detail.css">
 
 
     <!--    Bootstrap-->
@@ -24,8 +25,8 @@
     <script src="https://kit.fontawesome.com/e5b5eed843.js" crossorigin="anonymous"></script>
 
 
-    <!--        <link rel="stylesheet" href="../css/hero-slider.css">-->
-    <!--        <link rel="stylesheet" href="../css/owl-carousel.css">-->
+<!--        <link rel="stylesheet" href="../css/hero-slider.css">-->
+<!--        <link rel="stylesheet" href="../css/owl-carousel.css">-->
 
 
     <!-- Unfortunately needed for the Navbar to work...   -->
@@ -39,8 +40,15 @@
     <script src="../js/main.js" defer></script>
 
 
+
+
+
+
+
+
 </head>
 <body>
+
 <div class="wrap" id="navtop">
     <header id="header">
         <div class="container">
@@ -57,13 +65,13 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="/events">Events</a></li>
                             <li><a href="/forum">Forum</a></li>
-                            <li><a href="/archives">Archives</a></li>
-                            <li><a href="/election">Election</a></li>
+<li><a href="/archives">Archives</a></li>
+<li><a href="/election">Election</a></li>
 
                             <li><a href="#" id="showname"><i class="fa fa-user"></i></a>
                                 <!--   Change 'User' to username when logged in -->
                                 <ul class="sub-menu">
-                                    <li><a class="active login" href="/login" class="login">Log In</a></li>
+                                    <li><a href="/login" class="login">Log In</a></li>
                                     <li><a href="/register" class="login">Register</a></li>
                                     <!-- Only visible Log out and Account when logged in-->
                                     <li><a href="/account" class="logout">My Account</a></li>
@@ -78,34 +86,33 @@
     </header>
 </div>
 
+<section id="event_detail" class="mx-5">
+    <h1>Warhammer Killteam</h1>
+    <div class="row">
+        <div class="card col-sm-12 col-lg-8">
+            <div class="card-body">
+                <div class="row justify-content-between">
+                    <div class="col-5">
+                        <h4>Fri, May 13, 5:00pm – 9:15pm</h4>
+                    </div>
+                    <div class="col-5">
+                        <h4>JC 101</h4>
+                    </div>
+                </div>
+                <hr>
+                <div class="mr-5">
+                    <p>
+                        Get out your minatures and prepare for a no bars held brawl! it's killteam time, and the only people who win are the ones not dead. join us at Jonas Clark 001 this Friday for bountiful bloodshed galore!
+                    </p>
 
-<section class="container">
-    <div class="row d-flex justify-content-center"></div>
-
-    <h1>SPOC - User Forum</h1>
-    <!--needs to be changed for authentication-->
-
-
-    <section id="control_buttons">
-        <div>
-            <div class="input-group mb-3">
-                <input id="search_box" type="search" class="form-control" placeholder="Search for Post title or Tag..."
-                       aria-label="Search"
-                       aria-describedby="basic-addon2" onsearch="searchPosts()">
-                <span class="input-group-text" id="basic-addon2" onclick="searchPosts()"><i
-                        class="fas fa-search"></i></span>
+                </div>
             </div>
         </div>
-        <div class="input-group mb-3 d-flex justify-content-end">
-            <button class="btn btn-info logout" onclick="window.location.href='/forum_edit'">Create a New Post</button>
+        <div class="card col-sm-12 col-lg-4">
+            <img src="../img/event5.jpg" id="event_img">
+
         </div>
-    </section>
 
-
-    <div class="col-lg-12">
-        <ul id="post_list" class="list-group">
-
-        </ul>
     </div>
 </section>
 
