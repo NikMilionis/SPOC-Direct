@@ -37,15 +37,6 @@ function showList(posts) {
     });
 }
 
-//timetest
-// let times = [];
-// $('body').on('click', function (){
-//     const time = new Date().toLocaleTimeString()
-//     times.push(time)
-//console.log(time)
-//console.log(times)
-// })
-
 $.getJSON("/get_all_posts")
     .done(function (data) {
         let sort = []

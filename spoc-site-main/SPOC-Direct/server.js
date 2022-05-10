@@ -20,8 +20,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+const mongoDBcon = 'mongodb+srv://SPOCadmin:spoc123@clusterspoc.cf2bd.mongodb.net/spocDB?retryWrites=true&w=majority'
 
-mongoose.connect('mongodb://127.0.0.1:27017/spocDB',
+mongoose.connect( mongoDBcon || 'mongodb://127.0.0.1:27017/spocDB',
     {useNewUrlParser: true}, function () {
         console.log("db connection successful");
     });
@@ -115,12 +116,6 @@ const tresSchema = new mongoose.Schema({
     }
 })
 
-const voterSchema = new mongoose.Schema({
-    username: {
-        type: String
-    }
-})
-
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -149,7 +144,6 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose)
 
 const Post = mongoose.model('Post', forumPostSchema)
-const Voted = mongoose.model('Voted', voterSchema)
 
 const User = mongoose.model('User', userSchema);
 
@@ -240,12 +234,7 @@ app.get("/get_users", function (req, res) {
     });
 });
 
-app.get("/get_logincount", function (req, res) {
 
-    res.send({
-        "message": logincount,
-        "data": logincount});
-});
 
 app.get("/get_pres", function (req, res) {
     Pres.find(function (err, data) {
@@ -531,13 +520,12 @@ app.get('/logout', (req, res) => {
         res.redirect('/')
     }
 });
-let logincount = 0;
+
 app.post('/login', (req, res) => {
     const user = new User({
         username: req.body.username,
         password: req.body.password
     });
-    logincount++
     req.login(user, (err) => {
         if (err) {
             res.redirect("/html/login.html?error=Database error");
@@ -663,7 +651,6 @@ app.get('/election_vote', (req, res) => {
     }
 })
 
-console.log(Voted)
 
 app.post('/election_vote', async (req, res) => {
     const votes = {
@@ -686,20 +673,6 @@ app.post('/election_vote', async (req, res) => {
     if (req.isAuthenticated()) {
         console.log(req.user.username)
 
-        console.log("new user added")
-        const username = {
-            username: req.user.username
-        }
-        const nc = new Voted(username);
-        nc.save((err, added) => {
-            if (err) {
-                console.log(err["message"]);
-                //res.send("Database Error!")
-
-            } else {
-                console.log(added._id + "This is new")
-            }
-        })
     } else {
         res.location("/login")
     }

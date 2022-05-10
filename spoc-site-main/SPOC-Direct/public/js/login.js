@@ -16,7 +16,7 @@ $('form').on('submit', function (e) {
         e.preventDefault();
         $('#error_msg').text("Password cannot be empty");
     } else {
-        console.log("Something failed, Sworrwy x<");
+        console.log("Successfully Logged In User");
     }
 });
 
