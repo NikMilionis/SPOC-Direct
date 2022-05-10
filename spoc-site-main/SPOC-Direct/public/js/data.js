@@ -11,7 +11,7 @@ const csvWriter = createCsvWriter({
 });
 
 const csvWriter2 = createCsvWriter({
-    path: 'out2.csv',
+    path: 'pres.csv',
     header: [
         {id: 'votes', title: 'Votes'},
         {id: 'candidate', title: 'Candidate'}
