@@ -20,9 +20,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-const mongoDBcon = 'mongodb+srv://SPOCadmin:spoc123@clusterspoc.cf2bd.mongodb.net/spocDB?retryWrites=true&w=majority'
+const mongoDBcon = "mongodb://SPOCadmin:spoc123@clusterspoc-shard-00-00.cf2bd.mongodb.net:27017,clusterspoc-shard-00-01.cf2bd.mongodb.net:27017,clusterspoc-shard-00-02.cf2bd.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-h1j78w-shard-0&authSource=admin&retryWrites=true&w=majority"
 
-mongoose.connect( mongoDBcon || 'mongodb://127.0.0.1:27017/spocDB',
+mongoose.connect( 'mongodb://127.0.0.1:27017/spocDB',
     {useNewUrlParser: true}, function () {
         console.log("db connection successful");
     });

@@ -16,7 +16,9 @@ let secrList = [];
 let tresList = [];
 
 
-mongoose.connect('mongodb://localhost:27017/spocDB',
+const mongoDBcon = "mongodb://SPOCadmin:spoc123@clusterspoc-shard-00-00.cf2bd.mongodb.net:27017,clusterspoc-shard-00-01.cf2bd.mongodb.net:27017,clusterspoc-shard-00-02.cf2bd.mongodb.net:27017/spocDB?ssl=true&replicaSet=atlas-h1j78w-shard-0&authSource=admin&retryWrites=true&w=majority"
+
+mongoose.connect( 'mongodb://127.0.0.1:27017/spocDB',
     {useNewUrlParser: true}, function () {
         console.log("db connection successful");
     });
@@ -227,7 +229,7 @@ jsonList = JSON.parse(rawdata);
             console.log(err);
         } else {
             console.log("all data saved");
-            mongoose.connection.close();
+            //mongoose.connection.close();
         }
     });
 
